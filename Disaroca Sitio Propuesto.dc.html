@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Parisienne&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:#FBFBFE; color:#151228; font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  a{ color:#5E3A87; text-decoration:none; }
+  a:hover{ color:#4B2A6B; }
+  input,select,textarea,button{ font-family:inherit; }
+  @keyframes glow{ 0%,100%{ opacity:.55 } 50%{ opacity:1 } }
+  @keyframes beamfall{
+    0%{ transform:translateY(-240px); opacity:0 }
+    6%{ opacity:1 }
+    86%{ opacity:1 }
+    100%{ transform:translateY(calc(100vh + 40px)); opacity:.85 }
+  }
+  @keyframes sparkflash{
+    0%,84%{ opacity:0; transform:scaleX(.2) }
+    88%{ opacity:1; transform:scaleX(1) }
+    100%{ opacity:0; transform:scaleX(1.4) }
+  }
+  @keyframes sparkfly{
+    0%,84%{ opacity:0; transform:translate(0,0) }
+    87%{ opacity:1; transform:translate(0,0) }
+    100%{ opacity:0; transform:translate(var(--tx),var(--ty)) }
+  }
+  @keyframes marquee{
+    0%{ transform:translateX(0) }
+    100%{ transform:translateX(-50%) }
+  }
+  @keyframes washdrift{
+    0%,100%{ transform:translate3d(0,0,0) scale(1); opacity:.9 }
+    50%{ transform:translate3d(0,-3%,0) scale(1.06); opacity:1 }
+  }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:linear-gradient(180deg,#C6D0FF 0%,#DDE3FF 18%,#F0F2FE 42%,#FFFFFF 72%); position:relative;">
+
+  <div style="position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;">
+    <div style="position:absolute; inset:-10% -5% auto -5%; height:78vh; background:radial-gradient(60% 100% at 50% 0%, rgba(150,163,255,.55) 0%, rgba(176,168,240,.28) 40%, rgba(255,255,255,0) 80%); animation:washdrift 18s ease-in-out infinite;"></div>
+    <div style="position:absolute; left:-10%; right:-10%; bottom:-8%; height:52vh; background:radial-gradient(60% 100% at 42% 100%, rgba(232,163,61,.14) 0%, rgba(140,120,210,.16) 45%, rgba(255,255,255,0) 80%); animation:washdrift 24s ease-in-out infinite reverse;"></div>
+    <sc-for list="{{ beams }}" as="b" hint-placeholder-count="9">
+      <div style="position:absolute; top:0; left:{{ b.left }}; width:1px; height:{{ b.h }}; border-radius:999px; background:linear-gradient(to top, {{ b.color }}, rgba(255,255,255,0)); animation:beamfall {{ b.dur }} linear infinite; animation-delay:{{ b.delay }};"></div>
+      <div style="position:absolute; bottom:0; left:{{ b.left }}; width:2px; height:2px;">
+        <div style="position:absolute; left:-22px; bottom:0; width:44px; height:2px; border-radius:999px; background:linear-gradient(to right, rgba(255,255,255,0), {{ b.color }}, rgba(255,255,255,0)); filter:blur(1.5px); animation:sparkflash {{ b.dur }} linear infinite; animation-delay:{{ b.delay }};"></div>
+        <sc-for list="{{ b.sparks }}" as="s" hint-placeholder-count="5">
+          <div style="position:absolute; left:0; bottom:0; width:2px; height:2px; border-radius:999px; background:{{ b.color }}; --tx:{{ s.tx }}; --ty:{{ s.ty }}; animation:sparkfly {{ b.dur }} ease-out infinite; animation-delay:{{ b.delay }};"></div>
+        </sc-for>
+      </div>
+    </sc-for>
+    <div style="position:absolute; left:0; right:0; bottom:0; height:1px; background:linear-gradient(to right, rgba(255,255,255,0), rgba(107,70,168,.28), rgba(255,255,255,0));"></div>
+  </div>
+
+  <div style="position:relative; z-index:1;">
+
+  <div ref="{{ barRef }}" style="position:sticky; top:0; z-index:50; background:transparent; pointer-events:none; padding:14px 24px 0;">
+    <div style="position:relative; max-width:1280px; margin:0 auto; pointer-events:auto;">
+    <div style="position: relative; display: flex; align-items: center; gap: 20px; padding: 14px 22px; justify-content: center; padding-right: 64px; padding-left: 64px">
+      <div style="display:flex; align-items:center; gap:10px; cursor:pointer;" onClick="{{ goSplash }}">
+        <svg viewBox="0 0 40 40" style="width:26px;height:26px;flex:none">
+          <circle cx="20" cy="20" r="19" fill="#4B2A6B"></circle>
+          <circle cx="20" cy="5" r="2" fill="#FFFFFF"></circle>
+          <circle cx="30.6" cy="9.4" r="1.5" fill="#FFFFFF"></circle>
+          <circle cx="35" cy="20" r="2" fill="#FFFFFF"></circle>
+          <circle cx="30.6" cy="30.6" r="1.5" fill="#FFFFFF"></circle>
+          <circle cx="20" cy="35" r="2" fill="#FFFFFF"></circle>
+          <circle cx="9.4" cy="30.6" r="1.5" fill="#FFFFFF"></circle>
+          <circle cx="5" cy="20" r="2" fill="#FFFFFF"></circle>
+          <circle cx="9.4" cy="9.4" r="1.5" fill="#FFFFFF"></circle>
+        </svg>
+        <span style="font-family: DM Sans; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #6E6889; font-weight: 600">DISAROCA GROUP</span>
+      </div>
+      <div style="flex:1; display:flex; justify-content:center;">
+        <div style="display:flex; gap:4px;">
+          <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
+            <div onClick="{{ item.go }}" style="font-family: DM Sans; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; padding: 8px 15px; border-radius: 999px; cursor: pointer; transition: background .25s ease, color .25s ease; background: {{ item.bg }}; font-weight: 500; color: #FFFFFF" style-hover="opacity:.75">{{ item.label }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex; gap:4px; flex:none;">
+        <div onClick="{{ setEs }}" style="padding: 7px 15px; border-radius: 999px; font-family: DM Sans; font-size: 12px; cursor: pointer; transition: background .25s ease, color .25s ease; background: {{ esBg }}; font-weight: 500; color: #FFFFFF">ES</div>
+        <div onClick="{{ setEn }}" style="padding:7px 15px; border-radius:999px; font-family:'JetBrains Mono',monospace; font-size:11px; cursor:pointer; transition:background .25s ease, color .25s ease; background:{{ enBg }}; color:{{ enColor }};">EN</div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- ============ HOME (hero parallax) ============ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="02 Home" ref="{{ heroRef }}" style="height:300vh; padding:160px 0 0; overflow:hidden; position:relative; display:flex; flex-direction:column; perspective:1000px; transform-style:preserve-3d;">
+    <div style="max-width:1280px; width:100%; margin:0 auto; padding:0 64px 140px; position:relative; min-height:calc(100vh - 300px); display:flex; flex-direction:column; justify-content:center;">
+      <h1 style="font-family: DM Sans; font-weight: 600; letter-spacing: -.03em; font-size: 76px; line-height: 1.15; margin: 0; max-width: 22ch">{{ t.hero.title1 }}<br>{{ t.hero.title2 }} <span style="display:inline-block; height:1.15em; overflow:hidden; vertical-align:bottom;"><span style="display:block; transition:transform .6s cubic-bezier(.65,0,.35,1); transform:{{ wordShift }};"><sc-for list="{{ heroWords }}" as="w" hint-placeholder-count="6"><span style="display:block; height:1.15em; line-height:1.15em; color:#5E3A87;">{{ w }}</span></sc-for></span></span></h1>
+      <p style="max-width:60ch; font-size:19px; line-height:1.6; margin:30px 0 0; color:#524B70;">{{ t.hero.sub }}</p>
+    </div>
+    <div ref="{{ stageRef }}" style="will-change:transform, opacity;">
+      <div ref="{{ row1Ref }}" style="display:flex; flex-direction:row-reverse; gap:80px; margin-bottom:80px; will-change:transform;">
+        <sc-for list="{{ heroRow1 }}" as="c" hint-placeholder-count="5">
+          <div style="position:relative; flex:none; width:480px; height:384px; border-radius:4px; overflow:hidden; background:{{ c.grad }}; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-20px); box-shadow:0 40px 80px -30px rgba(30,20,60,.45)">
+            <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.28) 1.6px, transparent 1.6px); background-size:30px 30px;"></div>
+            <div style="position:absolute; left:20px; bottom:18px;">
+              <div style="font-size:18px; font-weight:600; color:#fff;">{{ c.title }}</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(255,255,255,.78); margin-top:4px;">{{ c.meta }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div ref="{{ row2Ref }}" style="display:flex; gap:80px; margin-bottom:80px; will-change:transform;">
+        <sc-for list="{{ heroRow2 }}" as="c" hint-placeholder-count="5">
+          <div style="position:relative; flex:none; width:480px; height:384px; border-radius:4px; overflow:hidden; background:{{ c.grad }}; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-20px); box-shadow:0 40px 80px -30px rgba(30,20,60,.45)">
+            <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.28) 1.6px, transparent 1.6px); background-size:30px 30px;"></div>
+            <div style="position:absolute; left:20px; bottom:18px;">
+              <div style="font-size:18px; font-weight:600; color:#fff;">{{ c.title }}</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(255,255,255,.78); margin-top:4px;">{{ c.meta }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div ref="{{ row3Ref }}" style="display:flex; flex-direction:row-reverse; gap:80px; will-change:transform;">
+        <sc-for list="{{ heroRow3 }}" as="c" hint-placeholder-count="5">
+          <div style="position:relative; flex:none; width:480px; height:384px; border-radius:4px; overflow:hidden; background:{{ c.grad }}; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-20px); box-shadow:0 40px 80px -30px rgba(30,20,60,.45)">
+            <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.28) 1.6px, transparent 1.6px); background-size:30px 30px;"></div>
+            <div style="position:absolute; left:20px; bottom:18px;">
+              <div style="font-size:18px; font-weight:600; color:#fff;">{{ c.title }}</div>
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(255,255,255,.78); margin-top:4px;">{{ c.meta }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1280px; margin:0 auto; padding:0 64px 120px;">
+    <div style="font-family: DM Sans; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: #6B46A8; margin-bottom: 16px; text-align: center; font-weight: 600">{{ t.homePanel.eyebrow }}</div>
+    <h2 style="font-family: 'DM Sans',ui-sans-serif,system-ui,sans-serif; font-weight: 600; letter-spacing: -.03em; font-size: 44px; line-height: 1.1; margin: 0 0 14px; text-align: center; margin-right: 128px; margin-left: 128px">{{ t.homePanel.title }}</h2>
+    <p style="font-size: 18px; color: #524B70; margin: 0 0 40px; line-height: 1.6; text-align: center; margin-right: 128px; margin-left: 128px">{{ t.homePanel.sub }}</p>
+
+    <div style="border:1px solid #DCD8EA; border-radius:18px; overflow:hidden; background:#FFFFFF;">
+      <div style="display:flex;">
+        <sc-for list="{{ homeTabs }}" as="item" hint-placeholder-count="4">
+          <div onClick="{{ item.onClick }}" style="flex: 1; padding: 17px 14px; text-align: center; cursor: pointer; font-family: DM Sans; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; transition: background .25s ease, color .25s ease; background: {{ item.bg }}; color: {{ item.color }}; border-bottom: 3px solid {{ item.bar }}">{{ item.label }}</div>
+        </sc-for>
+      </div>
+      <div style="display:grid; grid-template-columns:1.05fr 1fr; min-height:340px;">
+        <div style="position:relative; background:{{ activeHome.grad }};">
+          <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.26) 1.5px, transparent 1.5px); background-size:30px 30px;"></div>
+          <div style="position: absolute; left: 22px; bottom: 20px; font-family: DM Sans; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.82)">{{ activeHome.cap }}</div>
+        </div>
+        <div style="padding:44px; display:flex; flex-direction:column; justify-content:center;">
+          <div style="font-family: DM Sans; font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: #4B2A6B; margin-bottom: 12px">{{ activeHome.eyebrow }}</div>
+          <h3 style="font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif; margin:0 0 12px; font-size:26px; font-weight:600; letter-spacing:-.02em; line-height:1.2;">{{ activeHome.title }}</h3>
+          <p style="margin:0 0 24px; font-size:15.5px; line-height:1.7; color:#5A5378;">{{ activeHome.body }}</p>
+          <sc-if value="{{ activeHome.showCountdown }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex; align-items:baseline; gap:12px; padding:16px 20px; background:#E7E4F2; border-radius:12px; margin-bottom:22px;">
+              <span style="font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif; font-weight:700; letter-spacing:-.03em; font-size:34px; color:#4B2A6B; line-height:1;">{{ countdownDays }}</span>
+              <span style="font-family: DM Sans; font-size: 12px; color: #524B70">{{ countdownSentence }}</span>
+            </div>
+          </sc-if>
+          <div onClick="{{ activeHome.go }}" style="align-self: flex-start; padding: 13px 22px; border-radius: 999px; background: #4B2A6B; color: #fff; font-family: DM Sans; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; cursor: pointer" style-hover="background:#5E3A87">{{ activeHome.cta }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0 0 40px;">
+
+    <div style="padding:0 64px 40px;">
+      <div style="font-family: DM Sans; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #4B2A6B; margin-bottom: 14px; text-align: center; font-weight: 600">{{ t.navilandia.zoomEyebrow }}</div>
+      <h2 style="font-family: DM Sans; font-weight: 700; letter-spacing: -.03em; font-size: 38px; margin: 0 0 10px; text-align: center">{{ t.navilandia.zoomTitle }}</h2>
+      <p style="margin: 0; font-size: 15.5px; color: #5A5378; text-align: center">{{ t.navilandia.zoomHint }}</p>
+      <p style="margin: 8px 0 0; font-family: 'JetBrains Mono',monospace; font-size: 11.5px; color: #4B2A6B; text-align: center">{{ t.navilandia.zoomClick }}</p>
+    </div>
+    <div ref="{{ zoomRef }}" style="position:relative; height:340vh;">
+      <div ref="{{ stickyRef }}" style="position:sticky; top:86px; height:calc(100vh - 86px); overflow:hidden; background:transparent;">
+        <sc-for list="{{ zoomTiles }}" as="tile" hint-placeholder-count="7">
+          <div ref="{{ tile.ref }}" style="position:absolute; top:0; left:0; width:100%; height:100%; display:flex; align-items:center; justify-content:center; will-change:transform; pointer-events:none;">
+            <div onClick="{{ tile.onClick }}" style="position:relative; overflow:hidden; cursor:pointer; pointer-events:auto; top:{{ tile.top }}; left:{{ tile.left }}; width:{{ tile.w }}; height:{{ tile.h }}; background:{{ tile.grad }};">
+              <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.3) 1.3px, transparent 1.3px); background-size:22px 22px;"></div>
+              <div style="position:absolute; left:10px; bottom:8px; font-family:'JetBrains Mono',monospace; font-size:8px; letter-spacing:.09em; text-transform:uppercase; color:rgba(255,255,255,.85);">{{ tile.cap }}</div>
+              <div style="position:absolute; inset:0; opacity:0; transition:opacity .25s ease; background:rgba(75,42,107,.35); box-shadow:inset 0 0 0 2px rgba(255,255,255,.7);" style-hover="opacity:1"></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    
+  </div>
+
+  <div style="padding:120px 0 140px;">
+    <div style="max-width:1280px; margin:0 auto; padding:0 64px 40px;">
+      
+      <div style="font-family: DM Sans; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #4B2A6B; margin-bottom: 14px; text-align: left; font-weight: 600">{{ t.navilandia.zoomEyebrow }}</div><h2 style="font-family: DM Sans; font-weight: 700; letter-spacing: -.03em; font-size: 38px; line-height: 1.15; margin: 0; max-width: 22ch">{{ t.clientsStrip.title1 }}<br>{{ t.clientsStrip.title2 }} <span style="display:inline-block; height:1.15em; overflow:hidden; vertical-align:bottom;"><span style="display:block; transition:transform .6s cubic-bezier(.65,0,.35,1); transform:{{ stripShift }};"><sc-for list="{{ stripWords }}" as="w" hint-placeholder-count="6"><span style="display:block; height:1.15em; line-height:1.15em; color:#5E3A87;">{{ w }}</span></sc-for></span></span></h2>
+    </div>
+    <div style="overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);">
+      <div style="display:flex; width:max-content; gap:16px; padding:8px 0; animation:marquee 42s linear infinite;">
+        <sc-for list="{{ stripLogos }}" as="logo" hint-placeholder-count="12">
+          <div style="flex:none; width:208px; height:208px; border-radius:14px; background:rgba(255,255,255,.66); border:1px solid #DCD8EA; display:flex; align-items:center; justify-content:center; padding:24px; text-align:center; transition:border-color .25s ease, transform .25s ease;" style-hover="border-color:#4B2A6B; transform:translateY(-4px)">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.04em; line-height:1.6; color:#4B2A6B; text-transform:uppercase;">{{ logo }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1280px; margin:0 auto; padding:60px 64px 40px;">
+    <div style="display:grid; grid-template-columns:1.05fr .95fr; gap:64px; align-items:center; padding-bottom:110px;">
+      <div>
+        <h2 style="font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif; font-weight:700; letter-spacing:-.03em; font-size:40px; line-height:1.12; margin:0 0 16px; max-width:22ch;">{{ t.footer.title }}</h2>
+        <p style="font-size:16.5px; line-height:1.65; color:#5A5378; margin:0 0 28px; max-width:48ch;">{{ t.footer.sub }}</p>
+        <sc-if value="{{ newsNotSent }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <input value="{{ newsEmail }}" onChange="{{ onNewsEmail }}" placeholder="{{ t.footer.placeholder }}" style="flex:1; min-width:240px; padding:15px 18px; border-radius:12px; border:1px solid #DCD8EA; background:rgba(255,255,255,.8); color:#151228; font-size:15px; outline:none;" style-focus="border-color:#4B2A6B">
+              <div onClick="{{ submitNews }}" style="flex:none; padding:15px 26px; border-radius:12px; background:#4B2A6B; color:#fff; font-weight:600; font-size:15px; cursor:pointer; transition:background .25s ease;" style-hover="background:#5E3A87">{{ t.footer.cta }}</div>
+            </div>
+            <sc-if value="{{ newsErr }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#B7211F; margin-top:10px;">{{ newsErr }}</div>
+            </sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{ newsSent }}" hint-placeholder-val="{{ false }}">
+          <div style="display:inline-flex; align-items:center; gap:10px; padding:15px 22px; border-radius:12px; background:rgba(75,42,107,.08); border:1px solid #DCD8EA;">
+            <span style="width:7px; height:7px; border-radius:999px; background:#4B2A6B;"></span>
+            <span style="font-size:15px; color:#4B2A6B; font-weight:600;">{{ t.footer.ok }}</span>
+          </div>
+        </sc-if>
+      </div>
+      <div style="position:relative; height:340px;">
+        <div style="position:absolute; right:0; top:14px; width:78%; height:300px; border-radius:18px; background:rgba(255,255,255,.5); border:1px solid #DCD8EA; transform:rotate(3deg);"></div>
+        <div style="position:absolute; right:24px; top:0; width:78%; height:300px; border-radius:18px; overflow:hidden; background:linear-gradient(155deg,#6B46A8,#211538 82%); transform:rotate(-2deg); box-shadow:0 30px 60px -30px rgba(30,20,60,.45);">
+          <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.28) 1.5px, transparent 1.5px); background-size:28px 28px;"></div>
+          <div style="position:absolute; left:18px; bottom:14px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.82);">{{ t.footer.img1 }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1.2fr repeat(3,1fr); gap:48px; padding-bottom:56px;">
+      <div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+          <svg viewBox="0 0 40 40" style="width:28px;height:28px;flex:none">
+            <circle cx="20" cy="20" r="19" fill="#4B2A6B"></circle>
+            <circle cx="20" cy="6" r="2.2" fill="#FFFFFF"></circle>
+            <circle cx="34" cy="20" r="2.2" fill="#FFFFFF"></circle>
+            <circle cx="20" cy="34" r="2.2" fill="#FFFFFF"></circle>
+            <circle cx="6" cy="20" r="2.2" fill="#FFFFFF"></circle>
+          </svg>
+          <span style="font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif; font-weight:700; letter-spacing:-.02em; font-size:19px;">Disaroca</span>
+        </div>
+        <p style="margin:0 0 22px; font-size:14.5px; line-height:1.7; color:#5A5378; max-width:34ch;">{{ t.footer.about }}</p>
+        <div style="display:flex; gap:8px;">
+          <sc-for list="{{ t.footer.social }}" as="ic" hint-placeholder-count="4">
+            <div style="width:36px; height:36px; border-radius:10px; border:1px solid #DCD8EA; display:flex; align-items:center; justify-content:center; cursor:pointer; font-family:'JetBrains Mono',monospace; font-size:11px; color:#4B2A6B; transition:border-color .25s ease, background .25s ease;" style-hover="border-color:#4B2A6B; background:rgba(75,42,107,.07)">{{ ic }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <sc-for list="{{ t.footer.cols }}" as="col" hint-placeholder-count="3">
+        <div>
+          <div style="font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif; font-weight:600; font-size:15px; margin-bottom:18px;">{{ col.title }}</div>
+          <div style="display:grid; gap:12px;">
+            <sc-for list="{{ col.items }}" as="it" hint-placeholder-count="5">
+              <div style="font-size:14.5px; color:#5A5378; cursor:pointer; transition:color .2s ease;" style-hover="color:#4B2A6B">{{ it }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="border-top:1px solid #DCD8EA; padding:24px 0 0; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <span style="font-size:13.5px; color:#726A8E;">{{ t.footer.copyright }}</span>
+      <div style="display:flex; gap:26px;">
+        <sc-for list="{{ t.footer.legal }}" as="l" hint-placeholder-count="3">
+          <span style="font-size:13.5px; color:#726A8E; cursor:pointer; transition:color .2s ease;" style-hover="color:#4B2A6B">{{ l }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isWip }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="En construccion" style="max-width:1280px; margin:0 auto; padding:220px 64px 260px; display:flex; flex-direction:column; align-items:center; text-align:center;">
+    <div style="display:inline-flex; align-items:center; gap:10px; margin-bottom:26px; padding:8px 16px 8px 12px; border-radius:999px; background:rgba(255,255,255,.7); border:1px solid #DCD8EA;">
+      <span style="width:7px; height:7px; border-radius:999px; background:#4B2A6B; flex:none;"></span>
+      <span style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#4B2A6B;">{{ wipLabel }}</span>
+    </div>
+    <h2 style="font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif; font-weight:600; letter-spacing:-.03em; font-size:64px; line-height:1.1; margin:0;">{{ t.wip }}</h2>
+  </div>
+  </sc-if>
+
+  
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;es&quot;,&quot;en&quot;],&quot;default&quot;:&quot;es&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototipo&quot;},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;servicios&quot;,&quot;proyectos&quot;,&quot;panel&quot;,&quot;proyecto&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototipo&quot;},&quot;showAnnotations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototipo&quot;},&quot;accentPurple&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;options&quot;:[&quot;#4B2A6B&quot;,&quot;#5E3A87&quot;,&quot;#3D2A63&quot;],&quot;default&quot;:&quot;#4B2A6B&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Marca&quot;}}">
+const SEASONS = [
+  { m: 12, d: 1, es: "Navidad", en: "Christmas" },
+  { m: 1, d: 29, es: "Año Nuevo Chino", en: "Chinese New Year" },
+  { m: 2, d: 14, es: "San Valentín", en: "Valentine's" },
+  { m: 4, d: 5, es: "Pascua", en: "Easter" }
+];
+
+const HERO_GRADS = [
+  "linear-gradient(150deg,#E8A33D,#8A4E7A 78%)", "linear-gradient(150deg,#4C5FD5,#141C3A 80%)",
+  "linear-gradient(150deg,#6B46A8,#1E1030 82%)", "linear-gradient(150deg,#C67F1E,#3A2410 80%)",
+  "linear-gradient(150deg,#3B6FD6,#0F1B36 80%)", "linear-gradient(150deg,#B7211F,#3A1010 82%)",
+  "linear-gradient(150deg,#9C7FD0,#241539 80%)", "linear-gradient(150deg,#FFC46B,#8A4E7A 84%)",
+  "linear-gradient(150deg,#16213D,#0A1020 80%)", "linear-gradient(150deg,#7C5BB8,#1B1030 82%)",
+  "linear-gradient(150deg,#E8A33D,#4B2A6B 80%)", "linear-gradient(150deg,#2E5FA8,#0D1830 82%)",
+  "linear-gradient(150deg,#8A4E7A,#20122E 80%)", "linear-gradient(150deg,#CE8615,#3A2A10 82%)",
+  "linear-gradient(150deg,#4B2A6B,#120B1E 82%)"
+];
+
+const BEAMS = [
+  { left: "4%", h: "56px", dur: "7s", delay: "0s", color: "#7C5BB8" },
+  { left: "17%", h: "24px", dur: "9.5s", delay: "1.4s", color: "#4C5FD5" },
+  { left: "29%", h: "80px", dur: "5.5s", delay: "3.1s", color: "#9C7FD0" },
+  { left: "41%", h: "48px", dur: "11s", delay: "0.6s", color: "#7C5BB8" },
+  { left: "53%", h: "32px", dur: "6.5s", delay: "2.2s", color: "#CE8615" },
+  { left: "64%", h: "64px", dur: "8.5s", delay: "4.3s", color: "#4C5FD5" },
+  { left: "76%", h: "24px", dur: "4.8s", delay: "1.1s", color: "#9C7FD0" },
+  { left: "87%", h: "72px", dur: "10s", delay: "3.6s", color: "#7C5BB8" },
+  { left: "96%", h: "40px", dur: "6s", delay: "5.2s", color: "#CE8615" }
+];
+const SPARKS = [
+  { tx: "-26px", ty: "-16px" }, { tx: "-12px", ty: "-30px" }, { tx: "4px", ty: "-34px" },
+  { tx: "18px", ty: "-24px" }, { tx: "30px", ty: "-12px" }, { tx: "-34px", ty: "-6px" }
+];
+
+const ZOOM_SCALES = [4, 5, 6, 5, 6, 8, 9];
+const ZOOM_POS = [
+  { top: "0", left: "0", w: "25vw", h: "25vh" },
+  { top: "-30vh", left: "5vw", w: "35vw", h: "30vh" },
+  { top: "-10vh", left: "-25vw", w: "20vw", h: "45vh" },
+  { top: "0", left: "27.5vw", w: "25vw", h: "25vh" },
+  { top: "27.5vh", left: "5vw", w: "20vw", h: "25vh" },
+  { top: "27.5vh", left: "-22.5vw", w: "30vw", h: "25vh" },
+  { top: "22.5vh", left: "25vw", w: "15vw", h: "15vh" }
+];
+const ZOOM_GRADS = [
+  "linear-gradient(155deg,#E8A33D,#7A4E10 88%)",
+  "linear-gradient(155deg,#6B4A93,#211538 82%)",
+  "linear-gradient(155deg,#3B6FD6,#0F1B36 84%)",
+  "linear-gradient(155deg,#B7211F,#3A1010 86%)",
+  "linear-gradient(155deg,#4B2A6B,#1E1030 84%)",
+  "linear-gradient(155deg,#FFC46B,#8A4E7A 88%)",
+  "linear-gradient(155deg,#16213D,#0A1020 82%)"
+];
+
+const DICT = {
+  es: {
+    tagline: "Damos luz a tus ideas",
+    quoteCta: "Cotizar",
+    countdownLabel: "Próxima temporada en",
+    disclaimer: "Prototipo interno de dirección de sitio, derivado del estudio de marca Disaroca (25 ago 2026). No es material oficial de Disaroca Group. Todas las cifras, plazos y especificaciones son de relleno para evaluar la maquetación — verificar con el equipo antes de usarlas. Las imágenes son marcadores de color.",
+    nav: { home: "Home", servicios: "Servicios", proyectos: "Proyectos", moments: "DisaMoments", nosotros: "Nosotros", contacto: "Contacto" },
+    wip: "En construcción",
+    homePanel: {
+      eyebrow: "Lo que hacemos",
+      title: "Cada proyecto es un reflejo auténtico de estilo y personalidad",
+      sub: "Cada pestaña muestra un frente del estudio: lo que instalamos, cómo lo pensamos, lo que ya entregamos y hacia dónde va la iluminación.",
+      tabs: [
+        { label: "Iluminación decorativa", eyebrow: "Iluminación decorativa · por temporada", title: "Instalaciones que convierten un espacio en destino", body: "Figuras a escala humana, túneles y jardines de luz para malls, plazas y municipios. Diseño, montaje, operación durante la temporada y desmontaje con almacenaje incluido.", cap: "Loop nocturno de temporada", cta: "Ver instalaciones", grad: "linear-gradient(155deg,#E8A33D,#7A4E10 85%)" },
+        { label: "Creatividad", eyebrow: "Creatividad · antes del montaje", title: "Tecnología de vanguardia con criterio de composición", body: "Cada pieza se dimensiona para que una familia entre en el encuadre. Render del recorrido, lista de piezas y cálculo de carga antes de tocar un cable.", cap: "Render de propuesta", cta: "Ver el proceso", grad: "linear-gradient(155deg,#6B46A8,#211538 82%)" },
+        { label: "Proyectos", eyebrow: "Proyectos entregados", title: "Bosque de luz · Metromall", body: "36 piezas, 8.400 metros de luz y siete semanas de operación nocturna. La galería de proyectos alimenta esta pestaña sola: la última entrega aparece aquí sin trabajo editorial.", cap: "Foto de entrega", cta: "Ver ficha técnica", grad: "linear-gradient(155deg,#4C5FD5,#141C3A 82%)" },
+        { label: "Tendencias", eyebrow: "Tendencias · DisaMoments", title: "Hacia dónde va la luz en Panamá", body: "LED de bajo consumo, recorridos pensados para fotografía y temporadas que ya no se limitan a diciembre. Ferias, talleres y hitos del equipo publicados en el blog.", cap: "Equipo en feria", cta: "Ver novedades", grad: "linear-gradient(155deg,#8A4E7A,#20122E 82%)" }
+      ]
+    },
+    footer: {
+      title: "Ilumina tu próxima temporada con Disaroca",
+      sub: "Déjanos tu correo y te escribimos cuando abrimos agenda de montaje para la temporada siguiente.",
+      placeholder: "tu@correo.com",
+      cta: "Quiero la agenda",
+      ok: "Listo, te escribimos pronto.",
+      err: "Escribe un correo válido",
+      about: "Contratación eléctrica e iluminación decorativa. Panamá, Colón y Costa Rica desde 2015.",
+      cols: [
+        { title: "Servicios", items: ["Subestaciones", "Redes de media tensión", "Diseño y estudios", "Mantenimiento", "Iluminación decorativa"] },
+        { title: "Navilandia", items: ["Temporada actual", "Instalaciones", "Para malls", "Fichas técnicas", "Almacenaje"] },
+        { title: "Empresa", items: ["Nosotros", "Clientes", "DisaMoments", "Trabaja con nosotros", "Contacto"] }
+      ],
+      social: ["IG", "FB", "IN", "YT"],
+      legal: ["Términos", "Privacidad", "Cookies"],
+      copyright: "© 2026 Disaroca Group. Prototipo interno, no material oficial.",
+      img1: "Instalación nocturna",
+      img2: "Equipo en montaje"
+    },
+    clientsStrip: {
+      eyebrow: "Clientes",
+      badge: "Doce clientes ancla · 240+ proyectos entregados",
+      title1: "Nos han confiado",
+      title2: "su iluminación en",
+      words: ["Panamá", "Colón", "Costa Rica", "Chitré", "David"],
+      logos: ["Aeropuerto de Tocumén", "Alcaldía de Panamá", "Metromall", "Multiplaza", "Altaplaza Mall", "Town Center Costa del Este", "Ensa", "Plaza Anayansi", "Paseo Central Chitré", "Westland Mall", "Albrook Mall", "Ciudad del Saber"]
+    },
+    hero: {
+      title1: "Damos luz",
+      title2: "a tus",
+      words: ["ideas", "espacios", "eventos", "temporadas", "proyectos"],
+      sub: "Nos destacamos por nuestra capacidad para combinar tecnología de vanguardia con un enfoque creativo, creando así proyectos que no solo son visualmente impactantes, sino también funcionales y eficientes.",
+      cards: [
+        { title: "Aeropuerto de Tocumén", meta: "Media tensión · 2023" },
+        { title: "Bosque de luz", meta: "Metromall · 2025" },
+        { title: "Jardín de hongos", meta: "Multiplaza · 2025" },
+        { title: "Recorrido navideño", meta: "Alcaldía de Panamá · 2024" },
+        { title: "Repotenciación de red", meta: "Ensa · 2024" },
+        { title: "Túnel de cascadas", meta: "Navilandia · 2024" },
+        { title: "Subestación 13.8 kV", meta: "Colón · 2023" },
+        { title: "Encendido de temporada", meta: "Altaplaza Mall · 2024" },
+        { title: "Iluminación de fachada", meta: "Town Center · 2023" },
+        { title: "Figuras a escala humana", meta: "Navilandia · 2025" },
+        { title: "Plaza iluminada", meta: "Plaza Anayansi · 2022" },
+        { title: "Estudio eléctrico", meta: "Costa Rica · 2025" },
+        { title: "Recorrido interior", meta: "Paseo Central Chitré · 2024" },
+        { title: "Mantenimiento preventivo", meta: "Contrato anual · 2025" },
+        { title: "Montaje nocturno", meta: "Navilandia · 2025" }
+      ]
+    },
+    splash: {
+      eyebrow: "Elige tu entrada",
+      eKicker: "Para empresas y gobierno",
+      eDesc: "Diseño, subestaciones y redes de media y alta tensión. Once años operando en Panamá, Colón y Costa Rica.",
+      eCta: "Ver servicios y proyectos",
+      nKicker: "Para tu próxima temporada",
+      nDesc: "Instalaciones de luz a escala humana para malls, plazas, municipios y eventos privados.",
+      nCta: "Ver instalaciones actuales",
+      note: "Nota de diseño: la puerta es obligatoria por decisión explícita — cada visitante se autoclasifica antes de ver contenido, y eso resuelve la brecha de audiencia mezclada del diagnóstico. La elección se recuerda en la siguiente visita; el logo del encabezado siempre devuelve aquí."
+    },
+    eNav: ["Servicios", "Proyectos", "Capacidades", "Nosotros"],
+    eStats: [
+      { v: "11", k: "Años de operación" },
+      { v: "240+", k: "Proyectos entregados" },
+      { v: "3", k: "Oficinas · PA / Colón / CR" },
+      { v: "48 h", k: "Respuesta a licitación" }
+    ],
+    eServices: [
+      { n: "01", title: "Subestaciones", desc: "Diseño, montaje y puesta en marcha de subestaciones de distribución para retail, industria y sector público.", specs: [{ k: "Capacidad", v: "hasta 34.5 kV" }, { k: "Entrega típica", v: "12–20 semanas" }, { k: "Normas", v: "IEEE / NEC" }] },
+      { n: "02", title: "Redes de media y alta tensión", desc: "Tendido, empalmes y repotenciación de redes aéreas y subterráneas, con cuadrilla propia certificada.", specs: [{ k: "Alcance", v: "aérea / subterránea" }, { k: "Cuadrillas", v: "6 simultáneas" }, { k: "Seguridad", v: "0 incidentes 2025" }] },
+      { n: "03", title: "Diseño y estudios eléctricos", desc: "Cálculo de cargas, coordinación de protecciones, estudios de cortocircuito y planos para permisología.", specs: [{ k: "Entregable", v: "planos + memoria" }, { k: "Software", v: "ETAP / AutoCAD" }, { k: "Plazo", v: "3–6 semanas" }] },
+      { n: "04", title: "Mantenimiento preventivo", desc: "Contratos anuales con inspección termográfica, pruebas de aislamiento y reporte trimestral de estado.", specs: [{ k: "Modalidad", v: "contrato anual" }, { k: "Inspección", v: "termográfica" }, { k: "Reporte", v: "trimestral" }] }
+    ],
+    electrico: {
+      eyebrow: "Contratación eléctrica · desde 2015",
+      title: "Infraestructura eléctrica que no se apaga",
+      sub: "Diseñamos, construimos y mantenemos redes de media y alta tensión para aeropuertos, municipios, centros comerciales y operadores de energía.",
+      cta1: "Solicitar cotización técnica",
+      cta2: "Ver ficha de proyecto",
+      svcTitle: "Cuatro líneas de servicio",
+      svcMeta: "Ficha técnica por línea",
+      proofTitle: "Clientes ancla",
+      proofCta: "Ver todos los clientes por sector",
+      footTitle: "Su próxima licitación empieza con una llamada técnica.",
+      footSub: "Respuesta en 48 horas con alcance, capacidad y plazo estimado — sin pasar por un formulario genérico de contacto."
+    },
+    nNav: ["Temporada", "Instalaciones", "Para malls", "Nosotros"],
+    navilandia: {
+      script: "Ilumina tus momentos",
+      title: "NAVILANDIA",
+      sub: "Instalaciones de luz a escala humana: figuras, túneles y jardines iluminados que convierten un espacio comercial en un destino de temporada.",
+      cta1: "Ver temporada actual",
+      cta2: "Cotiza tu evento",
+      galTitle: "Instalaciones recientes",
+      galCta: "Ver ficha completa",
+      zoomEyebrow: "CLIENTES",
+      zoomTitle: "La temporada, a pantalla completa",
+      zoomHint: "Sigue bajando: el mosaico se abre hasta ocupar toda la pantalla",
+      zoomClick: "Haz clic en cualquier pieza para llevarla al centro del recorrido",
+      zoomFoot: "Siete piezas de la temporada. El recorrido termina en una sola imagen a sangre — el mismo criterio de la fotografía nocturna de la marca."
+    },
+    nZoom: [
+      { cap: "Recorrido principal" }, { cap: "Figura a escala humana" }, { cap: "Cortina de luz frío" },
+      { cap: "Detalle navideño" }, { cap: "Túnel de acceso" }, { cap: "Encendido" }, { cap: "Montaje nocturno" }
+    ],
+    nGallery: [
+      { cap: "Instalación nocturna", title: "Bosque de luz", meta: "Metromall · 2025 · 14 piezas", grad: "linear-gradient(160deg,#6B4A93,#211538 72%)" },
+      { cap: "Detalle de producto", title: "Jardín de hongos", meta: "Multiplaza · 2025 · 22 piezas", grad: "linear-gradient(160deg,#E8A33D,#3A2E17 78%)" },
+      { cap: "Instalación nocturna", title: "Túnel de cascadas", meta: "Alcaldía de Panamá · 2024", grad: "linear-gradient(160deg,#3B6FD6,#0F1B36 76%)" }
+    ],
+    nSteps: [
+      { n: "1", title: "Visita y medición", desc: "Levantamiento del espacio, cargas disponibles y recorrido del visitante. Sin costo." },
+      { n: "2", title: "Propuesta visual", desc: "Render de la instalación, lista de piezas, potencia requerida y calendario de montaje." },
+      { n: "3", title: "Montaje y operación", desc: "Instalación, mantenimiento durante la temporada y desmontaje con almacenaje incluido." }
+    ],
+    panel: {
+      eyebrow: "Portada · panel de contenido perpetuo",
+      title: "Que la portada nunca dependa de una sola temporada",
+      sub: "Cuatro pestañas que siempre tienen algo que mostrar, porque cada una jala de una fuente que ya existe en la empresa. Reemplaza el hero estático que hoy queda vacío nueve meses al año.",
+      head: ["Pestaña", "De dónde sale el contenido", "Por qué nunca queda vacía", "Cadencia"],
+      rows: [
+        { a: "Temporada activa", b: "Catálogo de campañas por fecha (Navidad, San Valentín, Año Nuevo Chino, Pascua)", c: "Siempre hay una temporada más cercana; si ninguna está activa, muestra la próxima con cuenta regresiva.", d: "Automática por fecha" },
+        { a: "Último proyecto", b: "La misma galería de Proyectos que ya mantienen", c: "Cada instalación entregada entra sola, sin depender del calendario festivo.", d: "Al cerrar proyecto" },
+        { a: "Novedades", b: "DisaMoments, el blog que ya existe pero casi no se ve", c: "Ferias, RSE e hitos del equipo: contenido que hoy publican y queda enterrado.", d: "Cada publicación" },
+        { a: "Cotizar", b: "Fijo, con WhatsApp a la línea correspondiente", c: "No depende de contenido — es la salida constante para convertir la visita.", d: "Siempre visible" }
+      ],
+      tabs: [
+        { label: "Temporada activa", eyebrow: "Temporada activa · se actualiza sola", title: "Lo que esté vigente ahora mismo", body: "Navidad en diciembre, San Valentín en febrero, Año Nuevo Chino en enero — el mismo espacio, sin que nadie rediseñe la portada cada vez.", cap: "Loop nocturno de temporada", cta: "Ver temporada", grad: "linear-gradient(155deg,#E8A33D,#7A4E10 85%)" },
+        { label: "Último proyecto", eyebrow: "Último proyecto entregado", title: "Bosque de luz · Metromall", body: "La galería de proyectos alimenta esta pestaña sola: la última entrega aparece aquí sin trabajo editorial adicional.", cap: "Foto de entrega", cta: "Ver ficha técnica", grad: "linear-gradient(155deg,#6B4A93,#211538 82%)" },
+        { label: "Novedades", eyebrow: "DisaMoments", title: "Lo que pasa dentro de la empresa", body: "Ferias, talleres internos, RSE y hitos del equipo. Ya lo publican en el blog; aquí gana visibilidad en la portada.", cap: "Equipo en feria", cta: "Ver novedades", grad: "linear-gradient(155deg,#16213D,#0A1020 80%)" },
+        { label: "Cotizar", eyebrow: "Salida permanente", title: "Un formulario que bifurca en dos negocios", body: "Eléctrico pide voltaje y plazo; decorativo pide fecha y venue. Una sola entrada, dos caminos y WhatsApp directo a la línea correcta.", cap: "Bloque de contacto", cta: "Ir a cotizar", grad: "linear-gradient(155deg,#4B2A6B,#1E1030 84%)" }
+      ]
+    },
+    proyecto: {
+      eyebrow: "Ficha técnica · Navilandia",
+      title: "NAVILANDIA 2025",
+      sub: "Instalación navideña de temporada completa: recorrido iluminado, figuras a escala humana y operación nocturna durante siete semanas.",
+      specs: [
+        { k: "Metros de luz", v: "8.400 m" },
+        { k: "Piezas", v: "36" },
+        { k: "Días de montaje", v: "18" },
+        { k: "Potencia", v: "42 kW" },
+        { k: "Personal", v: "24" }
+      ],
+      briefTitle: "El encargo",
+      brief: [
+        "El cliente necesitaba convertir un espacio de circulación en un destino con motivo propio para visitar el centro comercial de noche, con un recorrido que funcionara tanto para familias como para fotografía en redes.",
+        "La respuesta fue un recorrido de siete estaciones con figuras a escala humana, cada una dimensionada para que una familia entre en el encuadre — el mismo criterio de composición que ya define la fotografía de la marca."
+      ],
+      img1: "Recorrido nocturno",
+      img2: "Detalle de pieza",
+      timeTitle: "Cronología",
+      timeline: [
+        { when: "Sem. −10", title: "Diseño y aprobación", desc: "Render del recorrido, lista de piezas y cálculo de carga eléctrica." },
+        { when: "Sem. −3", title: "Montaje", desc: "18 días de instalación en horario nocturno, sin cerrar el mall." },
+        { when: "Sem. 0", title: "Encendido", desc: "Evento de apertura con cobertura de prensa y redes." },
+        { when: "Sem. +7", title: "Desmontaje", desc: "Retiro, inventario y almacenaje de piezas para la temporada siguiente." }
+      ],
+      cta: "Cotiza una instalación así"
+    },
+    clientes: {
+      eyebrow: "Prueba social",
+      title: "El activo que ya tienen y hoy casi no se muestra",
+      sub: "Estos nombres viven en una línea de texto del sitio actual. Como página filtrable por sector se convierten en la credencial que abre licitaciones.",
+      note: "Nota de diseño: el filtro por sector permite que un gerente de infraestructura vea solo lo que le compete, y un planeador de eventos solo retail. Los años y descripciones son de relleno — hay que confirmarlos con el equipo antes de publicar."
+    },
+    sectors: { all: "Todos", airport: "Aeropuertos", retail: "Retail", gov: "Gobierno", energy: "Energía" },
+    clients: [
+      { name: "Aeropuerto de Tocumén", sector: "airport", year: "2023", project: "Iluminación exterior y mantenimiento de red de media tensión en zona de plataforma." },
+      { name: "Alcaldía de Panamá", sector: "gov", year: "2024", project: "Recorrido navideño en espacio público con operación nocturna de siete semanas." },
+      { name: "Metromall", sector: "retail", year: "2025", project: "Instalación Bosque de luz: 14 piezas a escala humana en circulación central." },
+      { name: "Multiplaza", sector: "retail", year: "2025", project: "Jardín de hongos iluminados y refuerzo de tablero de distribución." },
+      { name: "Altaplaza Mall", sector: "retail", year: "2024", project: "Decoración de temporada y mantenimiento preventivo anual." },
+      { name: "Town Center Costa del Este", sector: "retail", year: "2023", project: "Diseño de iluminación de fachada y plaza exterior." },
+      { name: "Ensa", sector: "energy", year: "2024", project: "Repotenciación de red aérea y coordinación de protecciones." },
+      { name: "Plaza Anayansi", sector: "retail", year: "2022", project: "Instalación de temporada y sustitución de luminarias por LED." },
+      { name: "Paseo Central Chitré", sector: "retail", year: "2024", project: "Recorrido de temporada en interior y exterior del centro comercial." }
+    ],
+    cotizar: {
+      eyebrow: "Un formulario, dos negocios",
+      title: "Cuéntanos qué necesitas iluminar",
+      sub: "Elige la línea y el formulario cambia solo: la eléctrica pregunta voltaje y plazo, la decorativa pregunta fecha y venue. Ambas llegan a la persona correcta.",
+      contacts: [
+        { k: "Eléctrico y decoración", v: "+507 6977-9328" },
+        { k: "Correo", v: "info@disaroca.com" },
+        { k: "Oficinas", v: "Panamá · Colón · Costa Rica" }
+      ],
+      whatsapp: "Escribir por WhatsApp",
+      branchLabel: "¿Qué necesitas?",
+      brE: "Servicio eléctrico",
+      brEsub: "Licitación, subestación, red, mantenimiento",
+      brD: "Iluminación decorativa",
+      brDsub: "Temporada, evento, instalación",
+      fName: "Nombre*",
+      fOrg: "Empresa o institución",
+      fEmail: "Correo*",
+      fPhone: "Teléfono",
+      fDetail: "Detalle del proyecto",
+      submit: "Enviar solicitud",
+      okTitle: "Solicitud enviada",
+      okSub: "Respondemos en 48 horas hábiles con alcance y plazo estimado.",
+      again: "Enviar otra",
+      errRequired: "Campo obligatorio",
+      errEmail: "Correo no válido",
+      errSummary: "Faltan campos por completar."
+    },
+    cotizarE: { section: "Datos técnicos", fA: "Voltaje o capacidad requerida*", fB: "Plazo objetivo", pA: "ej. 13.8 kV", pB: "ej. Q1 2027" },
+    cotizarD: { section: "Datos del evento", fA: "Fecha o temporada*", fB: "Venue o ubicación", pA: "ej. diciembre 2026", pB: "ej. Metromall, planta baja" }
+  },
+  en: {
+    tagline: "We bring your ideas to light",
+    quoteCta: "Get a quote",
+    countdownLabel: "Next season in",
+    disclaimer: "Internal site-direction prototype derived from the Disaroca brand study (25 Aug 2026). Not official Disaroca Group material. All figures, timelines and specs are placeholder content for evaluating layout — verify with the team before use. Images are colour stand-ins.",
+    nav: { home: "Home", servicios: "Services", proyectos: "Projects", panel: "Panel", proyecto: "Project" },
+    wip: "Under construction",
+    homePanel: {
+      eyebrow: "What we do",
+      title: "Every project is an authentic reflection of style and personality",
+      sub: "Each tab shows one front of the studio: what we install, how we think it through, what we have delivered and where lighting is heading.",
+      tabs: [
+        { label: "Decorative lighting", eyebrow: "Decorative lighting · by season", title: "Installations that turn a space into a destination", body: "Human-scale figures, tunnels and gardens of light for malls, plazas and municipalities. Design, build, in-season operation and teardown with storage included.", cap: "Seasonal night loop", cta: "See installations", grad: "linear-gradient(155deg,#E8A33D,#7A4E10 85%)" },
+        { label: "Creativity", eyebrow: "Creativity · before the build", title: "Cutting-edge technology with a composition rule", body: "Every piece is sized so a family fits inside the frame. Route render, piece list and load calculation before a single cable is touched.", cap: "Proposal render", cta: "See the process", grad: "linear-gradient(155deg,#6B46A8,#211538 82%)" },
+        { label: "Projects", eyebrow: "Delivered projects", title: "Forest of light · Metromall", body: "36 pieces, 8,400 metres of light and seven weeks of nightly operation. The projects gallery feeds this tab by itself — the newest delivery lands here with no editorial work.", cap: "Delivery photo", cta: "View spec sheet", grad: "linear-gradient(155deg,#4C5FD5,#141C3A 82%)" },
+        { label: "Trends", eyebrow: "Trends · DisaMoments", title: "Where light is heading in Panama", body: "Low-consumption LED, routes designed for photography and seasons that no longer stop at December. Fairs, workshops and team milestones from the blog.", cap: "Team at a fair", cta: "See news", grad: "linear-gradient(155deg,#8A4E7A,#20122E 82%)" }
+      ]
+    },
+    footer: {
+      title: "Light up your next season with Disaroca",
+      sub: "Leave your email and we will write when the build calendar opens for next season.",
+      placeholder: "you@email.com",
+      cta: "Send me the calendar",
+      ok: "Done — we will be in touch.",
+      err: "Enter a valid email",
+      about: "Electrical contracting and decorative lighting. Panama, Colón and Costa Rica since 2015.",
+      cols: [
+        { title: "Services", items: ["Substations", "Medium-voltage networks", "Design & studies", "Maintenance", "Decorative lighting"] },
+        { title: "Navilandia", items: ["Current season", "Installations", "For malls", "Spec sheets", "Storage"] },
+        { title: "Company", items: ["About", "Clients", "DisaMoments", "Careers", "Contact"] }
+      ],
+      social: ["IG", "FB", "IN", "YT"],
+      legal: ["Terms", "Privacy", "Cookies"],
+      copyright: "© 2026 Disaroca Group. Internal prototype, not official material.",
+      img1: "Night installation",
+      img2: "Crew on site"
+    },
+    clientsStrip: {
+      eyebrow: "Clients",
+      badge: "Twelve anchor clients · 240+ projects delivered",
+      title1: "Trusted with their",
+      title2: "lighting across",
+      words: ["Panama", "Colón", "Costa Rica", "Chitré", "David"],
+      logos: ["Tocumen Airport", "City of Panama", "Metromall", "Multiplaza", "Altaplaza Mall", "Town Center Costa del Este", "Ensa", "Plaza Anayansi", "Paseo Central Chitré", "Westland Mall", "Albrook Mall", "Ciudad del Saber"]
+    },
+    hero: {
+      title1: "We bring",
+      title2: "your",
+      words: ["ideas", "spaces", "events", "seasons", "projects"],
+      sub: "We stand out for our ability to combine cutting-edge technology with a creative approach, building projects that are not only visually striking but functional and efficient.",
+      cards: [
+        { title: "Tocumen Airport", meta: "Medium voltage · 2023" },
+        { title: "Forest of light", meta: "Metromall · 2025" },
+        { title: "Mushroom garden", meta: "Multiplaza · 2025" },
+        { title: "Christmas route", meta: "City of Panama · 2024" },
+        { title: "Network upgrade", meta: "Ensa · 2024" },
+        { title: "Cascade tunnel", meta: "Navilandia · 2024" },
+        { title: "13.8 kV substation", meta: "Colón · 2023" },
+        { title: "Season switch-on", meta: "Altaplaza Mall · 2024" },
+        { title: "Façade lighting", meta: "Town Center · 2023" },
+        { title: "Human-scale figures", meta: "Navilandia · 2025" },
+        { title: "Illuminated plaza", meta: "Plaza Anayansi · 2022" },
+        { title: "Electrical study", meta: "Costa Rica · 2025" },
+        { title: "Indoor route", meta: "Paseo Central Chitré · 2024" },
+        { title: "Preventive maintenance", meta: "Annual contract · 2025" },
+        { title: "Night build", meta: "Navilandia · 2025" }
+      ]
+    },
+    splash: {
+      eyebrow: "Choose your entrance",
+      eKicker: "For business & government",
+      eDesc: "Design, substations and medium- and high-voltage networks. Eleven years operating across Panama, Colón and Costa Rica.",
+      eCta: "View services & projects",
+      nKicker: "For your next season",
+      nDesc: "Human-scale light installations for malls, plazas, municipalities and private events.",
+      nCta: "See current installations",
+      note: "Design note: the gate is intentional — every visitor self-sorts before seeing content, which closes the mixed-audience gap from the diagnosis. The choice is remembered on the next visit; the header logo always returns here."
+    },
+    eNav: ["Services", "Projects", "Capabilities", "About"],
+    eStats: [
+      { v: "11", k: "Years operating" },
+      { v: "240+", k: "Projects delivered" },
+      { v: "3", k: "Offices · PA / Colón / CR" },
+      { v: "48 h", k: "Tender response time" }
+    ],
+    eServices: [
+      { n: "01", title: "Substations", desc: "Design, assembly and commissioning of distribution substations for retail, industry and the public sector.", specs: [{ k: "Capacity", v: "up to 34.5 kV" }, { k: "Typical delivery", v: "12–20 weeks" }, { k: "Standards", v: "IEEE / NEC" }] },
+      { n: "02", title: "Medium & high-voltage networks", desc: "Installation, splicing and upgrading of overhead and underground networks with our own certified crews.", specs: [{ k: "Scope", v: "overhead / buried" }, { k: "Crews", v: "6 concurrent" }, { k: "Safety", v: "0 incidents 2025" }] },
+      { n: "03", title: "Electrical design & studies", desc: "Load calculation, protection coordination, short-circuit studies and permit-ready drawings.", specs: [{ k: "Deliverable", v: "drawings + report" }, { k: "Software", v: "ETAP / AutoCAD" }, { k: "Lead time", v: "3–6 weeks" }] },
+      { n: "04", title: "Preventive maintenance", desc: "Annual contracts with thermographic inspection, insulation testing and quarterly condition reports.", specs: [{ k: "Model", v: "annual contract" }, { k: "Inspection", v: "thermographic" }, { k: "Reporting", v: "quarterly" }] }
+    ],
+    electrico: {
+      eyebrow: "Electrical contracting · since 2015",
+      title: "Electrical infrastructure that never goes dark",
+      sub: "We design, build and maintain medium- and high-voltage networks for airports, municipalities, shopping centres and utilities.",
+      cta1: "Request a technical quote",
+      cta2: "View project sheet",
+      svcTitle: "Four service lines",
+      svcMeta: "Spec sheet per line",
+      proofTitle: "Anchor clients",
+      proofCta: "See all clients by sector",
+      footTitle: "Your next tender starts with a technical call.",
+      footSub: "A 48-hour response with scope, capacity and estimated timeline — not a generic contact form."
+    },
+    nNav: ["Season", "Installations", "For malls", "About"],
+    navilandia: {
+      script: "Light up your moments",
+      title: "NAVILANDIA",
+      sub: "Human-scale light installations: figures, tunnels and illuminated gardens that turn a commercial space into a seasonal destination.",
+      cta1: "See current season",
+      cta2: "Quote your event",
+      galTitle: "Recent installations",
+      galCta: "View full sheet",
+      zoomEyebrow: "Immersive gallery · scroll",
+      zoomTitle: "The season, full screen",
+      zoomHint: "Keep scrolling: the mosaic opens until it fills the screen",
+      zoomClick: "Click any piece to move it to the centre of the route",
+      zoomFoot: "Seven pieces from the season. The sequence ends on a single full-bleed image — the same rule as the brand's night photography."
+    },
+    nZoom: [
+      { cap: "Main route" }, { cap: "Human-scale figure" }, { cap: "Cool light curtain" },
+      { cap: "Christmas detail" }, { cap: "Entrance tunnel" }, { cap: "Switch-on" }, { cap: "Night build" }
+    ],
+    nGallery: [
+      { cap: "Night installation", title: "Forest of light", meta: "Metromall · 2025 · 14 pieces", grad: "linear-gradient(160deg,#6B4A93,#211538 72%)" },
+      { cap: "Product detail", title: "Mushroom garden", meta: "Multiplaza · 2025 · 22 pieces", grad: "linear-gradient(160deg,#E8A33D,#3A2E17 78%)" },
+      { cap: "Night installation", title: "Cascade tunnel", meta: "City of Panama · 2024", grad: "linear-gradient(160deg,#3B6FD6,#0F1B36 76%)" }
+    ],
+    nSteps: [
+      { n: "1", title: "Site visit & survey", desc: "Space survey, available load and visitor route. No cost." },
+      { n: "2", title: "Visual proposal", desc: "Installation render, piece list, power requirement and build schedule." },
+      { n: "3", title: "Build & operation", desc: "Installation, in-season maintenance and teardown with storage included." }
+    ],
+    panel: {
+      eyebrow: "Homepage · perpetual content panel",
+      title: "So the homepage never depends on one season",
+      sub: "Four tabs that always have something to show, because each one pulls from a source the company already maintains. It replaces the static hero that sits empty nine months a year.",
+      head: ["Tab", "Where content comes from", "Why it is never empty", "Cadence"],
+      rows: [
+        { a: "Active season", b: "Date-driven campaign catalogue (Christmas, Valentine's, Chinese New Year, Easter)", c: "There is always a nearest season; if none is live it shows the next one with a countdown.", d: "Automatic by date" },
+        { a: "Latest project", b: "The same Projects gallery already maintained", c: "Every delivered installation lands here on its own, independent of the holiday calendar.", d: "On project close" },
+        { a: "News", b: "DisaMoments, the existing but near-invisible blog", c: "Fairs, CSR and team milestones — content already published but buried.", d: "Every post" },
+        { a: "Quote", b: "Fixed, with WhatsApp to the right line", c: "Not content-dependent — the constant exit that converts a visit.", d: "Always visible" }
+      ],
+      tabs: [
+        { label: "Active season", eyebrow: "Active season · self-updating", title: "Whatever is live right now", body: "Christmas in December, Valentine's in February, Chinese New Year in January — the same slot, with nobody redesigning the homepage each time.", cap: "Seasonal night loop", cta: "View season", grad: "linear-gradient(155deg,#E8A33D,#7A4E10 85%)" },
+        { label: "Latest project", eyebrow: "Latest delivery", title: "Forest of light · Metromall", body: "The projects gallery feeds this tab by itself: the newest delivery shows up with no extra editorial work.", cap: "Delivery photo", cta: "View spec sheet", grad: "linear-gradient(155deg,#6B4A93,#211538 82%)" },
+        { label: "News", eyebrow: "DisaMoments", title: "What happens inside the company", body: "Fairs, internal workshops, CSR and team milestones. Already published on the blog; here it earns homepage visibility.", cap: "Team at a fair", cta: "View news", grad: "linear-gradient(155deg,#16213D,#0A1020 80%)" },
+        { label: "Quote", eyebrow: "Permanent exit", title: "One form that branches into two businesses", body: "Electrical asks for voltage and timeline; decorative asks for date and venue. One entry, two paths, WhatsApp to the right line.", cap: "Contact block", cta: "Go to quote", grad: "linear-gradient(155deg,#4B2A6B,#1E1030 84%)" }
+      ]
+    },
+    proyecto: {
+      eyebrow: "Spec sheet · Navilandia",
+      title: "NAVILANDIA 2025",
+      sub: "A full-season Christmas installation: illuminated route, human-scale figures and nightly operation across seven weeks.",
+      specs: [
+        { k: "Metres of light", v: "8,400 m" },
+        { k: "Pieces", v: "36" },
+        { k: "Build days", v: "18" },
+        { k: "Power", v: "42 kW" },
+        { k: "Crew", v: "24" }
+      ],
+      briefTitle: "The brief",
+      brief: [
+        "The client needed to turn a circulation space into a destination with its own reason to visit the mall at night, with a route that worked for families and for social photography alike.",
+        "The answer was a seven-station route of human-scale figures, each sized so a family fits inside the frame — the same composition rule that already defines the brand's photography."
+      ],
+      img1: "Night route",
+      img2: "Piece detail",
+      timeTitle: "Timeline",
+      timeline: [
+        { when: "Wk −10", title: "Design & approval", desc: "Route render, piece list and electrical load calculation." },
+        { when: "Wk −3", title: "Build", desc: "18 nights of installation without closing the mall." },
+        { when: "Wk 0", title: "Switch-on", desc: "Opening event with press and social coverage." },
+        { when: "Wk +7", title: "Teardown", desc: "Removal, inventory and storage of pieces for next season." }
+      ],
+      cta: "Quote an installation like this"
+    },
+    clientes: {
+      eyebrow: "Social proof",
+      title: "The asset they already own and barely show",
+      sub: "These names live in one line of text on the current site. As a sector-filterable page they become the credential that opens tenders.",
+      note: "Design note: the sector filter lets an infrastructure manager see only what applies to them, and an event planner only retail. Years and descriptions are placeholder — confirm with the team before publishing."
+    },
+    sectors: { all: "All", airport: "Airports", retail: "Retail", gov: "Government", energy: "Energy" },
+    clients: [
+      { name: "Tocumen Airport", sector: "airport", year: "2023", project: "Exterior lighting and medium-voltage network maintenance in the apron area." },
+      { name: "City of Panama", sector: "gov", year: "2024", project: "Public-space Christmas route with seven weeks of nightly operation." },
+      { name: "Metromall", sector: "retail", year: "2025", project: "Forest of light: 14 human-scale pieces along the central concourse." },
+      { name: "Multiplaza", sector: "retail", year: "2025", project: "Illuminated mushroom garden and distribution board upgrade." },
+      { name: "Altaplaza Mall", sector: "retail", year: "2024", project: "Seasonal decoration and annual preventive maintenance." },
+      { name: "Town Center Costa del Este", sector: "retail", year: "2023", project: "Façade and outdoor plaza lighting design." },
+      { name: "Ensa", sector: "energy", year: "2024", project: "Overhead network upgrade and protection coordination." },
+      { name: "Plaza Anayansi", sector: "retail", year: "2022", project: "Seasonal installation and LED luminaire replacement." },
+      { name: "Paseo Central Chitré", sector: "retail", year: "2024", project: "Indoor and outdoor seasonal route for the shopping centre." }
+    ],
+    cotizar: {
+      eyebrow: "One form, two businesses",
+      title: "Tell us what you need to light",
+      sub: "Pick the line and the form adapts: electrical asks voltage and timeline, decorative asks date and venue. Both reach the right person.",
+      contacts: [
+        { k: "Electrical & decorative", v: "+507 6977-9328" },
+        { k: "Email", v: "info@disaroca.com" },
+        { k: "Offices", v: "Panama · Colón · Costa Rica" }
+      ],
+      whatsapp: "Message on WhatsApp",
+      branchLabel: "What do you need?",
+      brE: "Electrical service",
+      brEsub: "Tender, substation, network, maintenance",
+      brD: "Decorative lighting",
+      brDsub: "Season, event, installation",
+      fName: "Name*",
+      fOrg: "Company or institution",
+      fEmail: "Email*",
+      fPhone: "Phone",
+      fDetail: "Project details",
+      submit: "Send request",
+      okTitle: "Request sent",
+      okSub: "We reply within 48 business hours with scope and estimated timeline.",
+      again: "Send another",
+      errRequired: "Required field",
+      errEmail: "Invalid email",
+      errSummary: "Some fields are still missing."
+    },
+    cotizarE: { section: "Technical details", fA: "Required voltage or capacity*", fB: "Target timeline", pA: "e.g. 13.8 kV", pB: "e.g. Q1 2027" },
+    cotizarD: { section: "Event details", fA: "Date or season*", fB: "Venue or location", pA: "e.g. December 2026", pB: "e.g. Metromall, ground floor" }
+  }
+};
+
+class Component extends DCLogic {
+  state = {
+    screen: "home",
+    lang: "es",
+    tab: 0,
+    sector: "all",
+    branch: "electrico",
+    form: { name: "", org: "", email: "", phone: "", a: "", b: "", detail: "" },
+    errors: {},
+    sent: false,
+    now: Date.now(),
+    word: 0,
+    htab: 0,
+    order: [0, 1, 2, 3, 4, 5, 6],
+    nEmail: "",
+    nSent: false,
+    nErr: false
+  };
+
+  zoomRef = React.createRef();
+  barRef = React.createRef();
+  stickyRef = React.createRef();
+  heroRef = React.createRef();
+  stageRef = React.createRef();
+  row1Ref = React.createRef();
+  row2Ref = React.createRef();
+  row3Ref = React.createRef();
+  tileRefs = ZOOM_SCALES.map(() => React.createRef());
+
+  onZoomScroll = () => {
+    const c = this.zoomRef.current;
+    if (!c) return;
+    const bar = this.barRef.current ? this.barRef.current.offsetHeight : 0;
+    const sticky = this.stickyRef.current;
+    if (sticky && this.lastBar !== bar) {
+      this.lastBar = bar;
+      sticky.style.top = bar + "px";
+      sticky.style.height = "calc(100vh - " + bar + "px)";
+    }
+    const top = c.getBoundingClientRect().top - bar;
+    const total = c.offsetHeight - (window.innerHeight - bar);
+    const p = total > 0 ? Math.min(1, Math.max(0, -top / total)) : 0;
+    if (p === this.lastP) return;
+    this.lastP = p;
+    this.tileRefs.forEach((r, i) => {
+      if (r.current) r.current.style.transform = "scale(" + (1 + p * (ZOOM_SCALES[i] - 1)) + ")";
+    });
+  };
+
+  onHeroScroll = () => {
+    const c = this.heroRef.current;
+    if (!c) return;
+    const bar = this.barRef.current ? this.barRef.current.offsetHeight : 0;
+    const total = c.offsetHeight || 1;
+    const p = Math.min(1, Math.max(0, (bar - c.getBoundingClientRect().top) / total));
+    if (p === this.lastHP) return;
+    this.lastHP = p;
+    const e = Math.min(1, p / 0.2);
+    const stage = this.stageRef.current;
+    if (stage) {
+      stage.style.transform = "rotateX(" + (15 - 15 * e) + "deg) rotateZ(" + (20 - 20 * e) + "deg) translateY(" + (-700 + 1200 * e) + "px)";
+      stage.style.opacity = 0.2 + 0.8 * e;
+    }
+    const x = 1000 * p;
+    [[this.row1Ref, x], [this.row2Ref, -x], [this.row3Ref, x]].forEach(pair => {
+      if (pair[0].current) pair[0].current.style.transform = "translateX(" + pair[1] + "px)";
+    });
+  };
+
+  zoomLoop = () => {
+    this.onHeroScroll();
+    this.onZoomScroll();
+    this.raf = requestAnimationFrame(this.zoomLoop);
+  };
+
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState({ now: Date.now() }), 60000);
+    this.wordTimer = setInterval(() => this.setState(s => ({ word: s.word + 1 })), 2600);
+    if (this.props.startScreen) this.setState({ screen: this.props.startScreen });
+    if (this.props.lang) this.setState({ lang: this.props.lang });
+    this.raf = requestAnimationFrame(this.zoomLoop);
+    this.listenOpts = { passive: true, capture: true };
+    window.addEventListener("scroll", this.onZoomScroll, this.listenOpts);
+    document.addEventListener("scroll", this.onZoomScroll, this.listenOpts);
+    window.addEventListener("resize", this.onZoomScroll);
+    this.onZoomScroll();
+  }
+  componentDidUpdate() { this.lastP = null; this.lastBar = null; this.lastHP = null; this.onZoomScroll(); this.onHeroScroll(); }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    clearInterval(this.wordTimer);
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener("scroll", this.onZoomScroll, this.listenOpts);
+    document.removeEventListener("scroll", this.onZoomScroll, this.listenOpts);
+    window.removeEventListener("resize", this.onZoomScroll);
+  }
+
+  go(screen, extra) { if (["home","servicios","proyectos","panel","proyecto"].indexOf(screen) < 0) return; this.setState(Object.assign({ screen: screen }, extra || {})); window.scrollTo(0, 0); }
+
+  nextSeason(lang) {
+    const now = new Date(this.state.now);
+    let best = null;
+    SEASONS.forEach(s => {
+      for (let y = now.getFullYear(); y <= now.getFullYear() + 1; y++) {
+        const d = new Date(y, s.m - 1, s.d);
+        if (d > now && (!best || d < best.date)) best = { date: d, s: s };
+      }
+    });
+    const days = Math.ceil((best.date - now) / 86400000);
+    return { days: days, name: best.s[lang] };
+  }
+
+  setField(k) {
+    return e => {
+      const v = e.target.value;
+      this.setState(st => ({ form: Object.assign({}, st.form, { [k]: v }) }));
+    };
+  }
+
+  submit(t) {
+    const f = this.state.form;
+    const errs = {};
+    if (!f.name.trim()) errs.name = t.cotizar.errRequired;
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.trim())) errs.email = f.email.trim() ? t.cotizar.errEmail : t.cotizar.errRequired;
+    if (!f.a.trim()) errs.a = t.cotizar.errRequired;
+    if (Object.keys(errs).length) { this.setState({ errors: errs, sent: false }); return; }
+    this.setState({ errors: {}, sent: true });
+  }
+
+  renderVals() {
+    const st = this.state;
+    const t = DICT[st.lang] || DICT.es;
+    const purple = this.props.accentPurple || "#4B2A6B";
+    const cd = this.nextSeason(st.lang);
+
+    const navKeys = ["home", "servicios", "proyectos", "moments", "nosotros", "contacto"];
+    const navItems = navKeys.map(k => ({
+      label: t.nav[k],
+      go: () => this.go(k),
+      bg: st.screen === k ? "rgba(30,24,60,.07)" : "transparent",
+      color: st.screen === k ? "#1A1730" : "#6E6889"
+    }));
+
+    const panelTabs = t.panel.tabs.map((tab, i) => ({
+      label: tab.label,
+      onClick: () => this.setState({ tab: i }),
+      bg: st.tab === i ? "#FFFFFF" : "#E7E4F2",
+      color: st.tab === i ? "#241F3A" : "#6E6889",
+      bar: st.tab === i ? "#4B2A6B" : "transparent"
+    }));
+    const at = t.panel.tabs[st.tab];
+    const panelGo = [() => this.go("navilandia"), () => this.go("proyecto"), () => this.go("navilandia"), () => this.go("cotizar")][st.tab];
+    const activePanel = {
+      grad: at.grad, cap: at.cap, eyebrow: at.eyebrow, title: at.title, body: at.body, cta: at.cta,
+      showCountdown: st.tab === 0, go: panelGo
+    };
+
+    const sectorKeys = ["all", "airport", "retail", "gov", "energy"];
+    const sectorChips = sectorKeys.map(k => {
+      const count = k === "all" ? t.clients.length : t.clients.filter(c => c.sector === k).length;
+      const on = st.sector === k;
+      return {
+        label: t.sectors[k], count: count, onClick: () => this.setState({ sector: k }),
+        bg: on ? purple : "transparent", color: on ? "#FFFFFF" : "#565F7A", border: on ? purple : "#E1E4EE"
+      };
+    });
+    const filteredClients = t.clients
+      .filter(c => st.sector === "all" || c.sector === st.sector)
+      .map(c => ({ name: c.name, year: c.year, project: c.project, sector: t.sectors[c.sector] }));
+
+    const isE = st.branch === "electrico";
+    const bt = isE ? t.cotizarE : t.cotizarD;
+    const cot = Object.assign({}, t.cotizar, { fA: bt.fA, fB: bt.fB, pA: bt.pA, pB: bt.pB });
+    const errs = st.errors;
+
+    return {
+      t: Object.assign({}, t, { cotizar: cot }),
+      showAnnotations: this.props.showAnnotations !== false,
+      navItems: navItems,
+      goSplash: () => this.go("splash"),
+      goElectrico: () => this.go("electrico"),
+      goNavilandia: () => this.go("navilandia"),
+      goPanel: () => this.go("panel"),
+      goProyecto: () => this.go("proyecto"),
+      goClientes: () => this.go("clientes"),
+      goCotizar: () => this.go("cotizar"),
+      goCotizarElectrico: () => this.go("cotizar", { branch: "electrico", sent: false }),
+      goCotizarDeco: () => this.go("cotizar", { branch: "deco", sent: false }),
+      setEs: () => this.setState({ lang: "es" }),
+      setEn: () => this.setState({ lang: "en" }),
+      esBg: st.lang === "es" ? "rgba(30,24,60,.07)" : "transparent",
+      esColor: st.lang === "es" ? "#1A1730" : "#6E6889",
+      enBg: st.lang === "en" ? "rgba(30,24,60,.07)" : "transparent",
+      enColor: st.lang === "en" ? "#1A1730" : "#6E6889",
+      isSplash: st.screen === "splash",
+      isHome: st.screen === "home",
+      goHome: () => this.go("home"),
+      newsEmail: st.nEmail,
+      newsSent: st.nSent,
+      newsNotSent: !st.nSent,
+      newsErr: st.nErr ? t.footer.err : "",
+      onNewsEmail: e => { const v = e.target.value; this.setState({ nEmail: v, nErr: false }); },
+      submitNews: () => {
+        const ok = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(st.nEmail.trim());
+        this.setState(ok ? { nSent: true, nErr: false } : { nErr: true });
+      },
+      stripLogos: t.clientsStrip.logos.concat(t.clientsStrip.logos),
+      stripWords: t.clientsStrip.words.concat([t.clientsStrip.words[0]]),
+      stripShift: "translateY(-" + (st.word % t.clientsStrip.words.length) * 1.15 + "em)",
+      homeTabs: t.homePanel.tabs.map((tab, i) => ({
+        label: tab.label,
+        onClick: () => this.setState({ htab: i }),
+        bg: st.htab === i ? "#FFFFFF" : "#E7E4F2",
+        color: st.htab === i ? "#241F3A" : "#6E6889",
+        bar: st.htab === i ? "#4B2A6B" : "transparent"
+      })),
+      activeHome: Object.assign({}, t.homePanel.tabs[st.htab], {
+        showCountdown: st.htab === 0,
+        go: [() => this.go("navilandia"), () => this.go("panel"), () => this.go("proyecto"), () => this.go("panel")][st.htab]
+      }),
+      heroWords: t.hero.words.concat([t.hero.words[0]]),
+      wordShift: "translateY(-" + (st.word % t.hero.words.length) * 1.15 + "em)",
+      heroRef: this.heroRef,
+      stageRef: this.stageRef,
+      heroRow1: t.hero.cards.slice(0, 5).map((c, i) => ({ title: c.title, meta: c.meta, grad: HERO_GRADS[i], ref: null })),
+      heroRow2: t.hero.cards.slice(5, 10).map((c, i) => ({ title: c.title, meta: c.meta, grad: HERO_GRADS[i + 5] })),
+      heroRow3: t.hero.cards.slice(10, 15).map((c, i) => ({ title: c.title, meta: c.meta, grad: HERO_GRADS[i + 10] })),
+      row1Ref: this.row1Ref,
+      row2Ref: this.row2Ref,
+      row3Ref: this.row3Ref,
+      isElectrico: st.screen === "electrico",
+      isWip: st.screen !== "home",
+      wipLabel: (t.nav[st.screen] || ""),
+      isClientes: st.screen === "clientes",
+      isCotizar: st.screen === "cotizar",
+      countdownDays: cd.days + (st.lang === "es" ? " días" : " days"),
+      countdownName: cd.name,
+      countdownSentence: (st.lang === "es" ? "para " : "until ") + cd.name,
+      beams: BEAMS.map(b => Object.assign({}, b, { sparks: SPARKS })),
+      zoomRef: this.zoomRef,
+      barRef: this.barRef,
+      stickyRef: this.stickyRef,
+      zoomTiles: st.order.map((src, slot) => ({
+        cap: t.nZoom[src].cap, grad: ZOOM_GRADS[src], ref: this.tileRefs[slot],
+        top: ZOOM_POS[slot].top, left: ZOOM_POS[slot].left, w: ZOOM_POS[slot].w, h: ZOOM_POS[slot].h,
+        onClick: () => this.setState(prev => {
+          const o = prev.order.slice();
+          const f = 0, t0 = o[f]; o[f] = o[slot]; o[slot] = t0;
+          return { order: o };
+        })
+      })),
+      panelTabs: panelTabs,
+      activePanel: activePanel,
+      sectorChips: sectorChips,
+      filteredClients: filteredClients,
+      quoteBg: isE ? "rgba(255,255,255,.72)" : "rgba(255,255,255,.68)",
+      pickElectrico: () => this.setState({ branch: "electrico", errors: {} }),
+      pickDeco: () => this.setState({ branch: "deco", errors: {} }),
+      brElectricoBg: isE ? "#E9EEFB" : "transparent",
+      brElectricoBorder: isE ? "#6B46A8" : "#DCD8EA",
+      brDecoBg: isE ? "transparent" : "#FDF3E2",
+      brDecoBorder: isE ? "#DCD8EA" : "#E8A33D",
+      branchSectionLabel: bt.section,
+      form: st.form,
+      onName: this.setField("name"),
+      onOrg: this.setField("org"),
+      onEmail: this.setField("email"),
+      onPhone: this.setField("phone"),
+      onA: this.setField("a"),
+      onB: this.setField("b"),
+      onDetail: this.setField("detail"),
+      errName: errs.name || "",
+      errEmail: errs.email || "",
+      errA: errs.a || "",
+      errSummary: Object.keys(errs).length ? t.cotizar.errSummary : "",
+      submitForm: () => this.submit(t),
+      resetForm: () => this.setState({ sent: false, form: { name: "", org: "", email: "", phone: "", a: "", b: "", detail: "" }, errors: {} }),
+      sent: st.sent,
+      notSent: !st.sent
+    };
+  }
+}
+
+</script>
+</body>
+</html>

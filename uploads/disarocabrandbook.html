@@ -1,0 +1,1212 @@
+<title>Disaroca Brand Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Parisienne&family=Lora:ital,wght@0,500;0,600;1,500&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #F5F1F9;
+    --bg-elevated: #FFFFFF;
+    --ink: #1E1730;
+    --ink-soft: #5B5470;
+    --ink-faint: #8E85A6;
+    --purple: #4B2A6B;
+    --purple-deep: #2E1A47;
+    --purple-tint: #EAE1F5;
+    --amber: #C67F1E;
+    --amber-bg: #FBE9CE;
+    --red: #B7211F;
+    --red-bg: #F7DCDB;
+    --navy: #16213D;
+    --line: #DDD3EA;
+    --cover-bg: #14102A;
+    --cover-ink: #F3EEFA;
+    --font-display: 'Anton', 'Arial Narrow', sans-serif;
+    --font-script: 'Parisienne', cursive;
+    --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+    --font-body: 'Work Sans', 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --good: #2E7D5B;
+    --good-bg: #DCEEE3;
+    --warn: #B7211F;
+    --warn-bg: #F7DCDB;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #150F26;
+      --bg-elevated: #1E1836;
+      --ink: #F1ECFA;
+      --ink-soft: #C2B7DA;
+      --ink-faint: #8E7FAE;
+      --purple: #9C78C9;
+      --purple-deep: #C7ADE6;
+      --purple-tint: #2A2148;
+      --amber: #F0B454;
+      --amber-bg: #3A2E17;
+      --red: #E8746F;
+      --red-bg: #3B2020;
+      --navy: #AEC0E8;
+      --line: #362B54;
+      --cover-bg: #0C0918;
+      --cover-ink: #F3EEFA;
+      --good: #6FCB9F;
+      --good-bg: #1E3327;
+      --warn: #E8746F;
+      --warn-bg: #3B2020;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #150F26;
+    --bg-elevated: #1E1836;
+    --ink: #F1ECFA;
+    --ink-soft: #C2B7DA;
+    --ink-faint: #8E7FAE;
+    --purple: #9C78C9;
+    --purple-deep: #C7ADE6;
+    --purple-tint: #2A2148;
+    --amber: #F0B454;
+    --amber-bg: #3A2E17;
+    --red: #E8746F;
+    --red-bg: #3B2020;
+    --navy: #AEC0E8;
+    --line: #362B54;
+    --cover-bg: #0C0918;
+    --cover-ink: #F3EEFA;
+    --good: #6FCB9F;
+    --good-bg: #1E3327;
+    --warn: #E8746F;
+    --warn-bg: #3B2020;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ background: var(--bg); }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--purple); color: var(--cover-ink); }
+
+  .wrap{ max-width: 900px; margin: 0 auto; padding: 0 28px; }
+  section{ padding: 84px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type{ border-bottom: none; }
+
+  h2{
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    font-size: clamp(28px, 4vw, 40px);
+    margin: 0 0 8px;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .kicker{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .kicker::before{
+    content: "";
+    width: 22px; height: 1px;
+    background: var(--purple);
+    display: inline-block;
+  }
+  .lede{
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0 0 40px;
+  }
+  p{ max-width: 68ch; }
+  p.note{ color: var(--ink-soft); font-size: 15px; }
+
+  /* ---------- Cover ---------- */
+  .cover{
+    background: var(--cover-bg);
+    color: var(--cover-ink);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: none;
+  }
+  .cover-inner{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 108px 28px 76px;
+    position: relative;
+    z-index: 2;
+  }
+  .halo{
+    position: relative;
+    width: 168px; height: 168px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 30%, #5E3A87, #3B2159 72%);
+    margin: 0 0 40px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 30px 60px -20px rgba(75,42,107,0.7);
+  }
+  .halo svg{ position: absolute; inset: 0; width: 100%; height: 100%; }
+  .cover-eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #B79FD9;
+    margin: 0 0 18px;
+  }
+  .cover h1{
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(46px, 8vw, 84px);
+    line-height: 0.98;
+    margin: 0 0 6px;
+    letter-spacing: 0.005em;
+    text-wrap: balance;
+  }
+  .cover .script{
+    font-family: var(--font-script);
+    font-size: clamp(28px, 4vw, 38px);
+    color: var(--amber);
+    display: block;
+    margin: 6px 0 30px;
+  }
+  .cover-meta{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    margin-top: 46px;
+    padding-top: 26px;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    font-size: 14px;
+    color: #C9BBE0;
+  }
+  .cover-meta strong{ display:block; color: var(--cover-ink); font-weight: 600; font-size: 15px;}
+  .cover-lights{
+    position: absolute; inset: 0; z-index: 1; opacity: 0.55;
+  }
+
+  /* ---------- overview ---------- */
+  .facts{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .fact{ background: var(--bg-elevated); padding: 22px 24px; }
+  .fact .k{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .fact .v{ font-size: 16px; font-weight: 600; }
+  .fact .v.sub{ font-weight: 400; color: var(--ink-soft); font-size: 14.5px; }
+
+  /* ---------- logo ---------- */
+  .logo-grid{
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .logo-mark{
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, #5E3A87, var(--purple-deep) 75%);
+    position: relative;
+    box-shadow: 0 24px 48px -20px rgba(75,42,107,0.45);
+  }
+  .logo-mark svg{ position:absolute; inset:0; width:100%; height:100%; }
+  .logo-notes dl{ margin: 0; display: grid; gap: 16px; }
+  .logo-notes dt{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--purple);
+    margin-bottom: 3px;
+  }
+  .logo-notes dd{ margin: 0; color: var(--ink-soft); font-size: 15px; }
+
+  /* ---------- color swatches ---------- */
+  .swatches{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 18px;
+  }
+  .swatch{
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--bg-elevated);
+  }
+  .swatch .chip{ height: 96px; }
+  .swatch .meta{ padding: 14px 16px 16px; }
+  .swatch .name{ font-weight: 600; font-size: 14.5px; margin-bottom: 2px; }
+  .swatch .hex{ font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-faint); }
+  .swatch .use{ font-size: 12.5px; color: var(--ink-soft); margin-top: 6px; }
+
+  /* ---------- type specimen ---------- */
+  .type-row{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .type-row:last-child{ border-bottom: none; }
+  .type-sample{ font-size: clamp(30px, 5vw, 46px); line-height: 1; }
+  .type-sample.display{ font-family: var(--font-display); font-weight: 400; letter-spacing: 0.01em; }
+  .type-sample.script{ font-family: var(--font-script); color: var(--amber); font-size: clamp(32px,5vw,50px); }
+  .type-sample.body{ font-family: var(--font-body); font-weight: 600; }
+  .type-label{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    min-width: 150px;
+  }
+  .type-label span{ display:block; color: var(--ink-soft); text-transform: none; letter-spacing: 0; margin-top: 4px; font-size: 13px; }
+
+  /* ---------- pattern ---------- */
+  .pattern-demo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .pattern-tile{
+    aspect-ratio: 1;
+    border-radius: 14px;
+    background: var(--purple-deep);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .pattern-tile.b{ background: var(--navy); }
+  .pattern-tile svg{ position:absolute; inset:0; width:100%; height:100%; }
+
+  /* ---------- mood / photography ---------- */
+  .mood-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .mood-card{
+    aspect-ratio: 4/5;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+  }
+  .mood-card .cap{
+    position: relative; z-index: 2;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #F3EEFA;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .mood-card::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(10,8,20,0) 40%, rgba(10,8,20,0.75) 100%);
+    z-index:1;
+  }
+  .mood-1{ background: radial-gradient(circle at 30% 20%, #6B4A93, #211538 70%); }
+  .mood-2{ background: radial-gradient(circle at 70% 30%, #E8A33D, #3A2E17 75%); }
+  .mood-3{ background: linear-gradient(160deg, #16213D, #0A1020 70%); }
+
+  .mood-dots{ position:absolute; inset:0; z-index:1; }
+
+  /* ---------- voice ---------- */
+  .quote{
+    font-family: var(--font-script);
+    font-size: clamp(30px, 5vw, 44px);
+    color: var(--purple);
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+  .voice-list{ list-style:none; margin: 28px 0 0; padding: 0; display: grid; gap: 14px; }
+  .voice-list li{
+    padding-left: 22px;
+    position: relative;
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: 62ch;
+  }
+  .voice-list li::before{
+    content: "";
+    position: absolute; left: 0; top: 8px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+  .voice-list b{ color: var(--ink); font-weight: 600; }
+
+  /* ---------- footer ---------- */
+  footer{
+    padding: 56px 0 90px;
+  }
+  footer .wrap{
+    padding: 24px 28px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    max-width: 844px;
+  }
+  footer p{ margin: 0; color: var(--ink-faint); font-size: 13.5px; max-width: none; }
+  footer p + p{ margin-top: 8px; }
+
+  /* ---------- part divider ---------- */
+  .divider{
+    background: var(--cover-bg);
+    color: var(--cover-ink);
+    border-bottom: none;
+    padding: 0;
+  }
+  .divider .wrap{ padding: 64px 28px 60px; }
+  .divider .kicker{ color: #B79FD9; }
+  .divider .kicker::before{ background: #B79FD9; }
+  .divider h2{ color: var(--cover-ink); font-size: clamp(30px, 5vw, 44px); }
+  .divider p.lede{ color: #C9BBE0; margin-bottom: 0; }
+
+  /* ---------- diagnosis cards ---------- */
+  .diag-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .diag-card{
+    border: 1px solid var(--line);
+    background: var(--bg-elevated);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .diag-card .tag{
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--warn-bg);
+    color: var(--warn);
+    margin-bottom: 12px;
+  }
+  .diag-card h3{ margin: 0 0 8px; font-size: 16.5px; font-family: var(--font-body); font-weight: 600; }
+  .diag-card p{ margin: 0; font-size: 14px; color: var(--ink-soft); max-width: none; }
+
+  /* ---------- brand architecture diagram ---------- */
+  .arch{ padding: 12px 0 4px; }
+  .arch-root{
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+  .arch-node{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 14px 22px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 180px;
+  }
+  .arch-node.master{
+    background: var(--purple);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .arch-stem{ width: 1px; height: 28px; background: var(--line); }
+  .arch-children{
+    display: flex;
+    gap: 0;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+  }
+  .arch-branch{
+    display: flex; flex-direction: column; align-items: center;
+    flex: 1; max-width: 340px;
+    position: relative;
+    padding-top: 28px;
+  }
+  .arch-branch::before{
+    content: "";
+    position: absolute; top: 0; left: 50%;
+    width: 1px; height: 28px;
+    background: var(--line);
+  }
+  .arch-hbar{
+    position: absolute; top: 0; height: 1px; background: var(--line);
+    left: 50%; right: -50%;
+  }
+  .arch-children .arch-branch:first-child .arch-hbar{ left: 50%; right: -50%; }
+  .arch-children .arch-branch:last-child .arch-hbar{ left: -50%; right: 50%; }
+  .arch-node.child{
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    width: 100%;
+  }
+  .arch-node.child .name{ font-weight: 600; font-size: 14.5px; margin-bottom: 4px; font-family: var(--font-body); }
+  .arch-node.child .desc{ font-size: 12.5px; color: var(--ink-soft); letter-spacing: 0; text-transform: none; }
+
+  /* ---------- content pillars ---------- */
+  .pillars{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .pillar-card{
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+  }
+  .pillar-bar{ height: 6px; }
+  .pillar-body{ padding: 18px 20px 20px; }
+  .pillar-cadence{
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .pillar-body h3{ margin: 0 0 8px; font-size: 17px; font-family: var(--font-body); font-weight: 600; }
+  .pillar-body p{ margin: 0; font-size: 14px; color: var(--ink-soft); max-width: none; }
+
+  /* ---------- proof strip ---------- */
+  .proof-strip{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .proof-chip{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    background: var(--purple-tint);
+    color: var(--purple-deep);
+    border: 1px solid var(--line);
+  }
+
+  /* ---------- roadmap ---------- */
+  .roadmap{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .roadmap-col{
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--bg-elevated);
+    overflow: hidden;
+  }
+  .roadmap-head{
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .roadmap-head .when{ font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--purple); margin-bottom: 3px; }
+  .roadmap-head .label{ font-weight: 600; font-size: 15px; }
+  .roadmap-list{ list-style: none; margin: 0; padding: 14px 18px 18px; display: grid; gap: 12px; }
+  .roadmap-list li{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    padding-left: 18px;
+    position: relative;
+  }
+  .roadmap-list li::before{
+    content: "";
+    position: absolute; left: 0; top: 6px;
+    width: 7px; height: 7px;
+    border-radius: 2px;
+    background: var(--amber);
+  }
+  .roadmap-list li b{ color: var(--ink); font-weight: 600; }
+
+  /* ---------- style direction options ---------- */
+  .style-pair{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .style-card{
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+  }
+  .style-card .head{
+    padding: 26px 24px 22px;
+    color: #fff;
+  }
+  .style-card.a .head{ background: linear-gradient(160deg, #16213D, #0A1020 85%); }
+  .style-card.b .head{ background: linear-gradient(160deg, #5E3A87, #2E1A47 85%); }
+  .style-card .head .tag-line{ font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; margin-bottom: 8px; }
+  .style-card .head h3{ margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 26px; letter-spacing: 0.01em; }
+  .style-card .head p{ margin: 10px 0 0; font-size: 13.5px; color: rgba(255,255,255,0.72); max-width: none; }
+  .style-card .body{ padding: 20px 24px 24px; }
+  .style-card .body ul{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+  .style-card .body li{ font-size: 13.5px; color: var(--ink-soft); padding-left: 16px; position: relative; }
+  .style-card .body li::before{ content:"–"; position:absolute; left:0; color: var(--ink-faint); }
+  .style-card .swatches-mini{ display:flex; gap:6px; margin-top:14px; }
+  .style-card .swatches-mini span{ width:22px; height:22px; border-radius:6px; display:inline-block; border:1px solid var(--line); }
+
+  /* ---------- homepage lane wireframe ---------- */
+  .lane-wire{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .lane{
+    padding: 30px 24px;
+    min-height: 150px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    color: #fff;
+  }
+  .lane.electrico{ background: linear-gradient(155deg, #1B2743, #0B1020 80%); }
+  .lane.navilandia{ background: linear-gradient(155deg, #C67F1E, #6E4A18 85%); }
+  .lane .eyebrow{ font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.75; margin-bottom: 6px; }
+  .lane .name{ font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+  .lane .cta{ font-family: var(--font-mono); font-size: 11.5px; margin-top: 10px; opacity: 0.85; }
+
+  /* ---------- perpetual content panel mockup ---------- */
+  .panel-mock{
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+  }
+  .panel-tabs{
+    display: flex;
+    flex-wrap: wrap;
+    background: var(--purple-tint);
+  }
+  .panel-tab{
+    flex: 1;
+    min-width: 130px;
+    padding: 13px 14px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--purple-deep);
+    text-align: center;
+    border-bottom: 3px solid transparent;
+  }
+  .panel-tab.active{
+    background: var(--bg-elevated);
+    border-bottom: 3px solid var(--amber);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .panel-content{
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+  }
+  .panel-visual{
+    background: linear-gradient(155deg, #E8A33D, #7A4E10 85%);
+    min-height: 190px;
+  }
+  .panel-text{ padding: 26px 26px 26px; display: flex; flex-direction: column; justify-content: center; }
+  .panel-text .eyebrow{ font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--amber); margin-bottom: 8px; }
+  .panel-text h3{ margin: 0 0 8px; font-family: var(--font-body); font-weight: 600; font-size: 19px; }
+  .panel-text p{ margin: 0; font-size: 14px; color: var(--ink-soft); max-width: none; }
+
+  .source-table{ width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13.5px; }
+  .source-table th{ text-align: left; font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); font-weight: 500; padding: 0 14px 10px 0; border-bottom: 1px solid var(--line); }
+  .source-table td{ padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top; }
+  .source-table td:first-child{ color: var(--ink); font-weight: 600; white-space: nowrap; }
+  .source-table-wrap{ overflow-x: auto; }
+
+  @media (max-width: 640px){
+    .logo-grid{ grid-template-columns: 1fr; }
+    .facts{ grid-template-columns: 1fr; }
+    .mood-grid{ grid-template-columns: 1fr 1fr; }
+    .diag-grid{ grid-template-columns: 1fr; }
+    .pillars{ grid-template-columns: 1fr; }
+    .roadmap{ grid-template-columns: 1fr; }
+    .arch-children{ flex-direction: column; align-items: center; }
+    .arch-branch{ max-width: 100%; padding-top: 28px; }
+    .arch-hbar{ display: none; }
+    .style-pair{ grid-template-columns: 1fr; }
+    .lane-wire{ grid-template-columns: 1fr; }
+    .panel-content{ grid-template-columns: 1fr; }
+    .panel-visual{ min-height: 110px; }
+    section{ padding: 56px 0; }
+  }
+</style>
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-eyebrow">Estudio de marca &mdash; no oficial</div>
+    <div class="halo" aria-hidden="true">
+      <svg viewBox="0 0 168 168" fill="none">
+        <circle cx="84" cy="34" r="6" fill="#F3EEFA"/>
+        <circle cx="112" cy="42" r="4.5" fill="#F3EEFA"/>
+        <circle cx="132" cy="60" r="5.5" fill="#F3EEFA"/>
+        <circle cx="140" cy="86" r="4" fill="#F3EEFA"/>
+        <circle cx="132" cy="112" r="5" fill="#F3EEFA"/>
+        <circle cx="112" cy="130" r="4.5" fill="#F3EEFA"/>
+        <circle cx="84" cy="138" r="6" fill="#F3EEFA"/>
+        <circle cx="56" cy="130" r="4.5" fill="#F3EEFA"/>
+        <circle cx="36" cy="112" r="5" fill="#F3EEFA"/>
+        <circle cx="28" cy="86" r="4" fill="#F3EEFA"/>
+        <circle cx="36" cy="60" r="5.5" fill="#F3EEFA"/>
+        <circle cx="56" cy="42" r="4.5" fill="#F3EEFA"/>
+        <circle cx="100" cy="52" r="3" fill="#F3EEFA" opacity="0.6"/>
+        <circle cx="120" cy="76" r="2.6" fill="#F3EEFA" opacity="0.6"/>
+        <circle cx="118" cy="102" r="3" fill="#F3EEFA" opacity="0.6"/>
+        <circle cx="96" cy="120" r="2.6" fill="#F3EEFA" opacity="0.6"/>
+        <circle cx="70" cy="120" r="3" fill="#F3EEFA" opacity="0.6"/>
+        <circle cx="50" cy="100" r="2.6" fill="#F3EEFA" opacity="0.6"/>
+        <circle cx="50" cy="74" r="3" fill="#F3EEFA" opacity="0.6"/>
+        <circle cx="68" cy="52" r="2.6" fill="#F3EEFA" opacity="0.6"/>
+        <text x="84" y="98" text-anchor="middle" font-family="Work Sans, sans-serif" font-weight="700" font-size="46" fill="#F3EEFA">D</text>
+      </svg>
+    </div>
+    <h1>Disaroca<span class="script">&ldquo;Damos luz a tus ideas&rdquo;</span></h1>
+    <div class="cover-meta">
+      <div><strong>@disarocagroup</strong>Instagram</div>
+      <div><strong>Iluminación decorativa &amp; servicios eléctricos</strong>Categoría</div>
+      <div><strong>Panamá</strong>Sede</div>
+      <div><strong>25 ago 2026</strong>Levantamiento</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="overview">
+    <p class="kicker">01 &middot; Panorama</p>
+    <h2>Quién es Disaroca</h2>
+    <p class="lede">Lectura de marca construida a partir del perfil público de Instagram: bio, resaltados, cuadrícula de publicaciones y portada de marca. No sustituye un manual de marca oficial de la empresa.</p>
+    <div class="facts">
+      <div class="fact"><div class="k">Nombre de cuenta</div><div class="v">Disaroca Group</div><div class="v sub">@disarocagroup</div></div>
+      <div class="fact"><div class="k">Categoría declarada</div><div class="v">Producto / servicio</div></div>
+      <div class="fact"><div class="k">Tagline</div><div class="v">Damos luz a tus ideas ✨</div></div>
+      <div class="fact"><div class="k">Descripción</div><div class="v sub">Innovación en iluminación decorativa. Servicios eléctricos profesionales: garantía de eficiencia y seguridad.</div></div>
+      <div class="fact"><div class="k">Ubicación</div><div class="v">Calle 27 Este, PH BOC Balboa Office Center, Ciudad de Panamá</div></div>
+      <div class="fact"><div class="k">Sitio web</div><div class="v">www.disaroca.com</div></div>
+      <div class="fact"><div class="k">Alcance</div><div class="v">200 publicaciones &middot; 3,736 seguidores</div></div>
+      <div class="fact"><div class="k">Resaltados activos</div><div class="v sub">Highlights &middot; Proyectos</div></div>
+    </div>
+  </section>
+
+  <section id="logo">
+    <p class="kicker">02 &middot; Isotipo</p>
+    <h2>Construcción del logo</h2>
+    <p class="lede">Reconstrucción esquemática de referencia, no un archivo oficial de marca.</p>
+    <div class="logo-grid">
+      <div class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 220 220" fill="none">
+          <circle cx="110" cy="44" r="7.5" fill="#fff"/>
+          <circle cx="145" cy="54" r="5.5" fill="#fff"/>
+          <circle cx="171" cy="78" r="7" fill="#fff"/>
+          <circle cx="182" cy="111" r="5" fill="#fff"/>
+          <circle cx="171" cy="144" r="6.5" fill="#fff"/>
+          <circle cx="145" cy="168" r="5.5" fill="#fff"/>
+          <circle cx="110" cy="178" r="7.5" fill="#fff"/>
+          <circle cx="75" cy="168" r="5.5" fill="#fff"/>
+          <circle cx="49" cy="144" r="6.5" fill="#fff"/>
+          <circle cx="38" cy="111" r="5" fill="#fff"/>
+          <circle cx="49" cy="78" r="7" fill="#fff"/>
+          <circle cx="75" cy="54" r="5.5" fill="#fff"/>
+          <circle cx="130" cy="68" r="3.8" fill="#fff" opacity="0.65"/>
+          <circle cx="157" cy="99" r="3.3" fill="#fff" opacity="0.65"/>
+          <circle cx="154" cy="133" r="3.8" fill="#fff" opacity="0.65"/>
+          <circle cx="125" cy="157" r="3.3" fill="#fff" opacity="0.65"/>
+          <circle cx="91" cy="157" r="3.8" fill="#fff" opacity="0.65"/>
+          <circle cx="65" cy="130" r="3.3" fill="#fff" opacity="0.65"/>
+          <circle cx="65" cy="96" r="3.8" fill="#fff" opacity="0.65"/>
+          <circle cx="89" cy="68" r="3.3" fill="#fff" opacity="0.65"/>
+          <text x="110" y="128" text-anchor="middle" font-family="Work Sans, sans-serif" font-weight="700" font-size="58" fill="#fff">D</text>
+        </svg>
+      </div>
+      <div class="logo-notes">
+        <dl>
+          <div><dt>Forma</dt><dd>Insignia circular en morado profundo (aprox. #4B2A6B) con degradado sutil hacia el centro, evocando volumen de bombilla.</dd></div>
+          <div><dt>Monograma</dt><dd>&ldquo;D&rdquo; sans-serif en blanco, peso alto, centrado &mdash; referencia directa a &ldquo;Disaroca&rdquo;.</dd></div>
+          <div><dt>Halo de puntos</dt><dd>Anillo de 20 puntos blancos de tamaño alternado que rodea el monograma, leyendo como una guirnalda de luces puntuales: el motivo gráfico más distintivo de la cuenta.</dd></div>
+          <div><dt>Uso observado</dt><dd>Foto de perfil, marca de agua en videos (esquina superior izquierda) y como ícono del resaltado &ldquo;Proyectos&rdquo;.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="color">
+    <p class="kicker">03 &middot; Color</p>
+    <h2>Paleta observada</h2>
+    <p class="lede">Valores aproximados, leídos por inspección visual de la cuadrícula de publicaciones y del isotipo. Trátense como punto de partida, no como valores certificados de marca.</p>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="chip" style="background:#4B2A6B"></div>
+        <div class="meta"><div class="name">Morado Disaroca</div><div class="hex">#4B2A6B</div><div class="use">Color primario &mdash; isotipo, fondos de portada</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#E8A33D"></div>
+        <div class="meta"><div class="name">Ámbar cálido</div><div class="hex">#E8A33D</div><div class="use">Color dominante en foto de producto &mdash; luces decorativas</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#16213D"></div>
+        <div class="meta"><div class="name">Azul noche</div><div class="hex">#16213D</div><div class="use">Fondo recurrente &mdash; casi todo el contenido se fotografía de noche</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#B7211F"></div>
+        <div class="meta"><div class="name">Rojo navideño</div><div class="hex">#B7211F</div><div class="use">Temporada &mdash; Navidad, bandera de Panamá</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#3B6FD6"></div>
+        <div class="meta"><div class="name">Azul luz LED</div><div class="hex">#3B6FD6</div><div class="use">Cortinas y cascadas de luces frías</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#FFFFFF; border-bottom:1px solid var(--line)"></div>
+        <div class="meta"><div class="name">Blanco</div><div class="hex">#FFFFFF</div><div class="use">Tipografía sobre fondo nocturno, monograma</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#EAE1F5"></div>
+        <div class="meta"><div class="name">Lavanda claro</div><div class="hex">#EAE1F5</div><div class="use">Fondo de secciones del sitio web, con el patrón de puntos en relieve</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#3D2A63"></div>
+        <div class="meta"><div class="name">Morado footer</div><div class="hex">#3D2A63</div><div class="use">Bloque de contacto del sitio web &mdash; variante más apagada del morado primario</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="type">
+    <p class="kicker">04 &middot; Tipografía</p>
+    <h2>Dos voces tipográficas</h2>
+    <p class="lede">Las publicaciones alternan un titular condensado en mayúsculas para anuncios y un script fino para momentos y recaps &mdash; el mismo contraste que usan sus plantillas de Reels.</p>
+    <div class="type-row">
+      <div class="type-label">Titular<span>rótulos de campaña, mayúsculas</span></div>
+      <div class="type-sample display">CELEBRANDO CON PANAMÁ</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Acento<span>recaps, momentos, cierres</span></div>
+      <div class="type-sample script">Ilumina tus momentos</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Texto<span>bio, leyendas, UI</span></div>
+      <div class="type-sample body">Damos luz a tus ideas</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Serif editorial<span>titulares del sitio web (disaroca.com)</span></div>
+      <div class="type-sample" style="font-family: var(--font-serif); font-weight:600;">Últimas tendencias</div>
+    </div>
+  </section>
+
+  <section id="pattern">
+    <p class="kicker">05 &middot; Patrón</p>
+    <h2>El motivo de puntos</h2>
+    <p class="lede">El halo de luces del isotipo reaparece como textura: puntos dispersos de tamaño irregular sobre fondos oscuros, reforzando la idea de bombillas en la distancia.</p>
+    <div class="pattern-demo">
+      <div class="pattern-tile a">
+        <svg viewBox="0 0 200 200" fill="#fff">
+          <circle cx="20" cy="30" r="2.5"/><circle cx="55" cy="18" r="1.8"/><circle cx="90" cy="40" r="3"/>
+          <circle cx="130" cy="15" r="1.6"/><circle cx="165" cy="35" r="2.4"/><circle cx="30" cy="70" r="1.8"/>
+          <circle cx="70" cy="80" r="2.6"/><circle cx="110" cy="65" r="1.8"/><circle cx="150" cy="85" r="2.8"/>
+          <circle cx="185" cy="60" r="1.6"/><circle cx="15" cy="115" r="2.2"/><circle cx="50" cy="130" r="1.8"/>
+          <circle cx="95" cy="110" r="2.6"/><circle cx="135" cy="125" r="1.8"/><circle cx="175" cy="105" r="2.4"/>
+          <circle cx="35" cy="165" r="1.8"/><circle cx="75" cy="155" r="2.8"/><circle cx="115" cy="170" r="1.8"/>
+          <circle cx="155" cy="160" r="2.4"/><circle cx="190" cy="180" r="1.8"/><circle cx="10" cy="180" r="1.6"/>
+        </svg>
+      </div>
+      <div class="pattern-tile b">
+        <svg viewBox="0 0 200 200" fill="#F0B454">
+          <circle cx="25" cy="25" r="2"/><circle cx="60" cy="45" r="3"/><circle cx="95" cy="20" r="1.8"/>
+          <circle cx="125" cy="50" r="2.4"/><circle cx="160" cy="20" r="2"/><circle cx="185" cy="55" r="1.8"/>
+          <circle cx="15" cy="75" r="2.6"/><circle cx="50" cy="90" r="1.8"/><circle cx="85" cy="70" r="2.2"/>
+          <circle cx="120" cy="95" r="1.8"/><circle cx="155" cy="75" r="2.8"/><circle cx="190" cy="100" r="1.8"/>
+          <circle cx="30" cy="130" r="1.8"/><circle cx="65" cy="115" r="2.6"/><circle cx="100" cy="140" r="1.8"/>
+          <circle cx="135" cy="120" r="2.2"/><circle cx="170" cy="145" r="1.8"/><circle cx="20" cy="175" r="2.4"/>
+          <circle cx="80" cy="180" r="1.8"/><circle cx="145" cy="180" r="2.6"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="photo">
+    <p class="kicker">06 &middot; Fotografía</p>
+    <h2>Dirección visual del contenido</h2>
+    <p class="lede">Tres registros conviven en la cuenta. No se reproducen las fotografías originales &mdash; estos paneles ilustran la paleta y el encuadre típico de cada uno.</p>
+    <div class="mood-grid">
+      <div class="mood-card mood-1"><div class="cap">Instalación nocturna</div></div>
+      <div class="mood-card mood-2"><div class="cap">Detalle de producto</div></div>
+      <div class="mood-card mood-3"><div class="cap">Instalación técnica</div></div>
+    </div>
+    <ul class="voice-list" style="margin-top:32px;">
+      <li><b>Instalación nocturna:</b> figuras iluminadas a escala humana (árboles, personajes, réplicas) fotografiadas de noche, casi siempre con una persona o familia como referencia de tamaño.</li>
+      <li><b>Detalle de producto:</b> primer plano de la pieza de luz &mdash; peces, hongos, ángeles &mdash; con fondo desenfocado y bokeh cálido.</li>
+      <li><b>Instalación técnica:</b> el otro lado del negocio: técnicos con arnés y uniforme naranja de seguridad trabajando en estructuras eléctricas, tono más documental y menos festivo.</li>
+    </ul>
+  </section>
+
+  <section id="voice">
+    <p class="kicker">07 &middot; Tono de voz</p>
+    <h2>Cómo habla la marca</h2>
+    <p class="quote">&ldquo;Damos luz a tus ideas&rdquo;</p>
+    <ul class="voice-list">
+      <li><b>Idioma:</b> español, sin mezcla de inglés salvo términos técnicos puntuales.</li>
+      <li><b>Registro:</b> cercano y festivo en contenido de temporada (&ldquo;Recap&rdquo;, &ldquo;Así se vivió la Navidad&rdquo;); más sobrio y técnico al hablar de garantía, eficiencia y seguridad eléctrica.</li>
+      <li><b>Identidad local:</b> se apropia de símbolos panameños &mdash; bandera, selección nacional &mdash; para campañas de patrocinio (&ldquo;Celebrando con Panamá&rdquo;).</li>
+      <li><b>Doble mandato:</b> la cuenta sostiene dos negocios bajo una sola voz &mdash; iluminación decorativa de temporada y contratación eléctrica profesional &mdash; sin separarlos en cuentas distintas.</li>
+    </ul>
+  </section>
+
+  <section id="site">
+    <p class="kicker">08 &middot; Sitio web</p>
+    <h2>Lo que agrega disaroca.com</h2>
+    <p class="lede">El sitio confirma que Instagram solo muestra una cara del negocio. Aquí aparece la empresa completa: historia, dos líneas de servicio formales y presencia regional.</p>
+    <div class="facts">
+      <div class="fact"><div class="k">Fundación</div><div class="v">2015</div><div class="v sub">9 años de operación</div></div>
+      <div class="fact"><div class="k">Líneas de negocio</div><div class="v">Iluminación decorativa + servicios eléctricos</div><div class="v sub">Diseño, subestaciones, redes de media/alta tensión, mantenimiento</div></div>
+      <div class="fact"><div class="k">Misión</div><div class="v sub">&ldquo;Ofrecer soluciones de servicios eléctricos e iluminación innovadoras, sostenibles y de alta calidad.&rdquo;</div></div>
+      <div class="fact"><div class="k">Valores declarados</div><div class="v sub">Calidad e innovación, satisfacción del cliente, sostenibilidad, eficiencia energética</div></div>
+      <div class="fact"><div class="k">Oficinas</div><div class="v sub">Panamá (Torre Balboa Office Center) &middot; Colón &middot; Costa Rica (La Garita, Alajuela)</div></div>
+      <div class="fact"><div class="k">Contacto</div><div class="v sub">info@disaroca.com &middot; +507 6977-9328 (decoración/eléctrico) &middot; +507 6854-9057 (RRHH)</div></div>
+      <div class="fact"><div class="k">Redes enlazadas</div><div class="v">Instagram &middot; TikTok &middot; WhatsApp</div></div>
+      <div class="fact"><div class="k">Marca satélite</div><div class="v">Navilandia</div><div class="v sub">Nombre propio para al menos una instalación navideña a gran escala</div></div>
+    </div>
+    <p class="note" style="margin-top:24px;">El wordmark del sitio empareja el mismo halo de puntos con el texto &ldquo;DISAROCA&rdquo; en mayúsculas &mdash; a diferencia de la insignia circular con monograma &ldquo;D&rdquo; que usan como foto de perfil en Instagram. Son dos variantes del mismo sistema, no dos logos distintos.</p>
+  </section>
+
+</div>
+
+<div class="divider">
+  <div class="wrap">
+    <p class="kicker">Parte II</p>
+    <h2>Propuesta de alto impacto</h2>
+    <p class="lede">Disaroca ya tiene el activo más difícil de conseguir &mdash; proyectos en Tocumén, Metromall, Multiplaza y la Alcaldía de Panamá. Lo que sigue es una propuesta concreta para que su marca compita al mismo nivel que sus clientes.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="diagnostico">
+    <p class="kicker">09 &middot; Diagnóstico</p>
+    <h2>Cuatro brechas entre lo que hacen y lo que se ve</h2>
+    <p class="lede">Ninguna es un defecto de producto &mdash; el trabajo de instalación es de primer nivel. Son brechas de comunicación, y por eso se resuelven con decisiones de marca, no con más presupuesto de obra.</p>
+    <div class="diag-grid">
+      <div class="diag-card">
+        <span class="tag">Audiencia mezclada</span>
+        <h3>Un feed, dos compradores distintos</h3>
+        <p>La misma cuenta le habla a la familia que visita un centro comercial en Navidad y al gerente de infraestructura que licita una subestación eléctrica. Ninguno de los dos ve el contenido pensado para él primero.</p>
+      </div>
+      <div class="diag-card">
+        <span class="tag">Estacionalidad</span>
+        <h3>La marca "desaparece" 9 meses al año</h3>
+        <p>El sitio confirma proyectos de Año Nuevo Chino y San Valentín, pero la cuadrícula de Instagram es casi toda navideña. Fuera de diciembre, la cuenta pierde visibilidad justo cuando podría estar cerrando contratos B2B.</p>
+      </div>
+      <div class="diag-card">
+        <span class="tag">Identidad fragmentada</span>
+        <h3>Tres sistemas tipográficos, dos logos, sin regla escrita</h3>
+        <p>Condensada en el sitio, script en Instagram, serif en "Tendencias". Cada pieza se ve bien sola; juntas, nadie reconocería que son de la misma empresa sin leer el nombre.</p>
+      </div>
+      <div class="diag-card">
+        <span class="tag">Autoridad invisible</span>
+        <h3>Tocumén y la Alcaldía no aparecen en redes</h3>
+        <p>Son las credenciales más fuertes que puede tener un contratista eléctrico en Panamá, y hoy solo viven en una línea de texto del sitio web, no en el contenido que más se comparte.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="arquitectura">
+    <p class="kicker">10 &middot; Arquitectura de marca</p>
+    <h2>Una marca madre, dos voces con permiso para sonar distinto</h2>
+    <p class="lede">No se trata de dividir la empresa en dos cuentas de inmediato &mdash; se trata de que cada pieza de contenido declare, en el primer segundo, a quién le habla.</p>
+    <div class="arch">
+      <div class="arch-root">
+        <div class="arch-node master">DISAROCA GROUP</div>
+        <div class="arch-stem"></div>
+        <div class="arch-children">
+          <div class="arch-branch">
+            <div class="arch-hbar"></div>
+            <div class="arch-node child">
+              <div class="name">Disaroca Eléctrico</div>
+              <div class="desc">B2B &middot; licitaciones, municipios, malls, energía. Tono técnico, portafolio de clientes, casos de estudio.</div>
+            </div>
+          </div>
+          <div class="arch-branch">
+            <div class="arch-hbar"></div>
+            <div class="arch-node child">
+              <div class="name">Navilandia by Disaroca</div>
+              <div class="desc">B2C &middot; experiencias, temporadas, familias. Tono festivo, script y color, contenido para compartir.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:28px;">"Navilandia" ya existe como nombre de proyecto en el sitio &mdash; promoverlo a sub-marca de la línea decorativa es reutilizar un activo que ya construyeron, no inventar uno nuevo. El halo de puntos y el morado siguen siendo el hilo visual que une ambas voces.</p>
+  </section>
+
+  <section id="sistema">
+    <p class="kicker">11 &middot; Sistema visual unificado</p>
+    <h2>Reglas simples, aplicadas sin excepción</h2>
+    <div class="diag-grid">
+      <div class="diag-card" style="border-color:var(--good); background:var(--good-bg);">
+        <span class="tag" style="background:transparent;color:var(--good);padding:0;">Regla 1</span>
+        <h3>Un logo por superficie</h3>
+        <p>Insignia circular (D + halo) solo como foto de perfil y avatar. Wordmark (halo + "DISAROCA") en todo lo demás: sitio, PDFs, cartas, camisetas de instalación.</p>
+      </div>
+      <div class="diag-card" style="border-color:var(--good); background:var(--good-bg);">
+        <span class="tag" style="background:transparent;color:var(--good);padding:0;">Regla 2</span>
+        <h3>Dos tipografías, no tres</h3>
+        <p>Condensada (titulares, ambas voces) + Work Sans (todo el cuerpo de texto). El script se reserva exclusivamente para Navilandia; la serif editorial se retira o se limita al blog "Tendencias".</p>
+      </div>
+      <div class="diag-card" style="border-color:var(--good); background:var(--good-bg);">
+        <span class="tag" style="background:transparent;color:var(--good);padding:0;">Regla 3</span>
+        <h3>Morado siempre, ámbar solo en Navilandia</h3>
+        <p>El morado #4B2A6B identifica a Disaroca en cualquier contexto. El ámbar cálido queda como color de temporada/decorativo, no se usa en materiales de licitación eléctrica.</p>
+      </div>
+      <div class="diag-card" style="border-color:var(--good); background:var(--good-bg);">
+        <span class="tag" style="background:transparent;color:var(--good);padding:0;">Regla 4</span>
+        <h3>El halo de puntos como textura con licencia</h3>
+        <p>Ya funciona como fondo decorativo en el sitio. Extenderlo a portadas de PDF, presentaciones y stories da consistencia inmediata sin rediseñar nada desde cero.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contenido">
+    <p class="kicker">12 &middot; Estrategia de contenido</p>
+    <h2>Cuatro pilares para sostener el feed todo el año</h2>
+    <p class="lede">Rotación sugerida sobre 4&ndash;5 publicaciones semanales, para que diciembre deje de ser el único mes con presencia real.</p>
+    <div class="pillars">
+      <div class="pillar-card">
+        <div class="pillar-bar" style="background:var(--amber);"></div>
+        <div class="pillar-body">
+          <div class="pillar-cadence">2x por semana</div>
+          <h3>Instalación nocturna</h3>
+          <p>El contenido que ya funciona: piezas iluminadas a escala humana. Rotar temporada &mdash; Navidad, San Valentín, Año Nuevo Chino, Pascua &mdash; en vez de concentrarlo en diciembre.</p>
+        </div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-bar" style="background:var(--purple);"></div>
+        <div class="pillar-body">
+          <div class="pillar-cadence">1x por semana</div>
+          <h3>Detrás de cámara técnico</h3>
+          <p>El técnico en el poste con arnés ya está en la cuenta y es el contenido más diferenciador que tienen: nadie más en el rubro decorativo muestra el lado de ingeniería eléctrica.</p>
+        </div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-bar" style="background:var(--navy);"></div>
+        <div class="pillar-body">
+          <div class="pillar-cadence">1x por semana</div>
+          <h3>Prueba social</h3>
+          <p>Un post fijo tipo "clientes que confían en nosotros" con Tocumén, Metromall, Multiplaza, Altaplaza y la Alcaldía &mdash; hoy esa información solo vive en el sitio web.</p>
+        </div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-bar" style="background:var(--red);"></div>
+        <div class="pillar-body">
+          <div class="pillar-cadence">1x cada 2 semanas</div>
+          <h3>Comunidad y equipo</h3>
+          <p>Lo que ya documentan en DisaMoments (Easter Egg Hunt, ferias, talleres internos) pero casi nunca cruza al feed principal de Instagram.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="autoridad">
+    <p class="kicker">13 &middot; Prueba social</p>
+    <h2>El activo que ya tienen y no muestran</h2>
+    <p class="lede">Estos nombres aparecen en el sitio web pero no en el contenido que más circula. Convertirlos en un carrusel fijo o en el primer highlight de Instagram es la mejora de mayor impacto y menor costo de toda esta propuesta.</p>
+    <div class="proof-strip">
+      <span class="proof-chip">Aeropuerto de Tocumén</span>
+      <span class="proof-chip">Alcaldía de Panamá</span>
+      <span class="proof-chip">Metromall</span>
+      <span class="proof-chip">Multiplaza</span>
+      <span class="proof-chip">Altaplaza</span>
+      <span class="proof-chip">Town Center Costa del Este</span>
+      <span class="proof-chip">Ensa</span>
+      <span class="proof-chip">Plaza Anayansi</span>
+      <span class="proof-chip">Paseo Central Chitré</span>
+    </div>
+  </section>
+
+  <section id="roadmap">
+    <p class="kicker">14 &middot; Hoja de ruta</p>
+    <h2>Qué mover primero</h2>
+    <p class="lede">Ordenado por impacto sobre esfuerzo, no por importancia estratégica &mdash; todo en la primera columna se puede ejecutar sin rediseñar nada.</p>
+    <div class="roadmap">
+      <div class="roadmap-col">
+        <div class="roadmap-head"><div class="when">0&ndash;30 días</div><div class="label">Quick wins</div></div>
+        <ul class="roadmap-list">
+          <li><b>Highlight "Clientes":</b> reunir Tocumén, malls y Alcaldía en un destacado fijo de Instagram.</li>
+          <li><b>Publicar los proyectos no navideños</b> que ya existen en la web (San Valentín, Año Nuevo Chino) en el feed.</li>
+          <li><b>Fijar la regla de logo:</b> insignia solo en avatares, wordmark en todo lo demás.</li>
+        </ul>
+      </div>
+      <div class="roadmap-col">
+        <div class="roadmap-head"><div class="when">1&ndash;3 meses</div><div class="label">Mediano plazo</div></div>
+        <ul class="roadmap-list">
+          <li><b>Calendario de 4 pilares</b> operando con dueño y cadencia semanal asignados.</li>
+          <li><b>Bautizar "Navilandia by Disaroca"</b> como sub-marca visual, con su propio aviso en bio y highlight.</li>
+          <li><b>Números reales</b> en los contadores de "Proyectos / Clientes / Países" del sitio &mdash; hoy corren desde cero visualmente.</li>
+        </ul>
+      </div>
+      <div class="roadmap-col">
+        <div class="roadmap-head"><div class="when">3&ndash;6 meses</div><div class="label">Largo plazo</div></div>
+        <ul class="roadmap-list">
+          <li><b>Manual de marca formal</b> a partir de este estudio, validado con el equipo de diseño interno.</li>
+          <li><b>Evaluar cuenta separada</b> para el lado eléctrico B2B si el pilar de prueba social gana tracción propia.</li>
+          <li><b>Testimonios en video</b> de clientes ancla (mall, municipio) como formato insignia del pilar de autoridad.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="rediseno">
+    <p class="kicker">15 &middot; Dirección de rediseño</p>
+    <h2>Dos lenguajes visuales, no un compromiso a medias</h2>
+    <p class="lede">Hoy el sitio usa un solo estilo tibio para dos negocios muy distintos. En vez de buscar un término medio, cada lane de la arquitectura de marca (sección 10) se diseña con su propio lenguaje &mdash; y el morado y el halo de puntos son lo que los mantiene unidos.</p>
+    <div class="style-pair">
+      <div class="style-card a">
+        <div class="head">
+          <div class="tag-line">Opción A</div>
+          <h3>Autoridad industrial</h3>
+          <p>Para Disaroca Eléctrico: licitaciones, municipios, gerentes de infraestructura.</p>
+        </div>
+        <div class="body">
+          <ul>
+            <li>Fondo oscuro/neutro, fotografía documental de instalaciones reales, poco color.</li>
+            <li>Tipografía condensada + mono para datos técnicos (voltajes, normas, certificaciones).</li>
+            <li>Estructura tipo ficha técnica: capacidad, cobertura, tiempos, certificaciones.</li>
+            <li>CTA primario: "Solicitar cotización técnica", no "Contáctanos".</li>
+          </ul>
+          <div class="swatches-mini">
+            <span style="background:#16213D"></span>
+            <span style="background:#4B2A6B"></span>
+            <span style="background:#8E85A6"></span>
+            <span style="background:#FFFFFF;border:1px solid var(--line)"></span>
+          </div>
+        </div>
+      </div>
+      <div class="style-card b">
+        <div class="head">
+          <div class="tag-line">Opción B</div>
+          <h3>Inmersivo &amp; festivo</h3>
+          <p>Para Navilandia by Disaroca: familias, centros comerciales, planeadores de eventos.</p>
+        </div>
+        <div class="body">
+          <ul>
+            <li>Hero en video/loop nocturno, bokeh cálido, la fotografía manda sobre el texto.</li>
+            <li>Script como firma emocional, condensada para nombres de instalaciones.</li>
+            <li>Estructura tipo revista: historias, "recap" de temporada, galería inmersiva.</li>
+            <li>CTA primario: "Ver temporada actual" / "Cotiza tu evento".</li>
+          </ul>
+          <div class="swatches-mini">
+            <span style="background:#E8A33D"></span>
+            <span style="background:#4B2A6B"></span>
+            <span style="background:#B7211F"></span>
+            <span style="background:#16213D"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin:26px 0 14px;">En la práctica, esto no requiere dos sitios separados desde el día uno: basta con que la portada actual se convierta en un punto de entrada que separa al visitante en dos experiencias.</p>
+    <div class="lane-wire">
+      <div class="lane electrico">
+        <div class="eyebrow">Para empresas y gobierno</div>
+        <div class="name">Disaroca Eléctrico</div>
+        <div class="cta">Ver servicios &amp; proyectos →</div>
+      </div>
+      <div class="lane navilandia">
+        <div class="eyebrow">Para tu próxima temporada</div>
+        <div class="name">Navilandia</div>
+        <div class="cta">Ver instalaciones actuales →</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="panel">
+    <p class="kicker">16 &middot; Panel de contenido perpetuo</p>
+    <h2>Que la portada nunca dependa de una sola temporada</h2>
+    <p class="lede">Es correcto lo que muestra el diagnóstico: la marca se vuelve invisible fuera de diciembre porque la portada solo tiene un estado &mdash; "es Navidad" o "no pasa nada". La solución no es rediseñar la portada cada temporada; es reemplazar el hero estático por un panel con cuatro pestañas que <em>siempre</em> tienen algo que mostrar, porque cada una jala de una fuente distinta que ya existe en la empresa.</p>
+    <div class="panel-mock">
+      <div class="panel-tabs">
+        <div class="panel-tab active">Temporada activa</div>
+        <div class="panel-tab">Último proyecto</div>
+        <div class="panel-tab">Novedades</div>
+        <div class="panel-tab">Cotizar</div>
+      </div>
+      <div class="panel-content">
+        <div class="panel-visual"></div>
+        <div class="panel-text">
+          <div class="eyebrow">Temporada activa &middot; se actualiza sola</div>
+          <h3>Lo que esté vigente ahora mismo</h3>
+          <p>Navidad en diciembre, pero también San Valentín en febrero o Año Nuevo Chino en enero &mdash; el mismo espacio, sin depender de que alguien rediseñe la portada cada vez.</p>
+        </div>
+      </div>
+    </div>
+    <div class="source-table-wrap">
+      <table class="source-table">
+        <thead>
+          <tr><th>Pestaña</th><th>De dónde sale el contenido</th><th>Por qué nunca queda vacía</th><th>Cadencia</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Temporada activa</td>
+            <td>Catálogo de campañas por fecha (Navidad, San Valentín, Año Nuevo Chino, Pascua&hellip;)</td>
+            <td>Siempre hay una temporada "más cercana"; si ninguna está activa, muestra la próxima con cuenta regresiva.</td>
+            <td>Automática por fecha</td>
+          </tr>
+          <tr>
+            <td>Último proyecto</td>
+            <td>La misma galería de "Proyectos" que ya mantienen</td>
+            <td>Cada instalación entregada entra aquí sola, sin depender del calendario festivo.</td>
+            <td>Cada vez que se cierra un proyecto</td>
+          </tr>
+          <tr>
+            <td>Novedades</td>
+            <td>DisaMoments (el blog que ya existe pero casi no se ve)</td>
+            <td>Ferias, RSE, hitos del equipo &mdash; contenido que hoy publican y queda enterrado.</td>
+            <td>Cada publicación nueva</td>
+          </tr>
+          <tr>
+            <td>Cotizar</td>
+            <td>Fijo, con WhatsApp directo a la línea correspondiente (eléctrico o decorativo)</td>
+            <td>No depende de contenido &mdash; es la salida constante para convertir la visita en contacto.</td>
+            <td>Siempre visible</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:20px;">Técnicamente es una tabla de contenido con 4 categorías y una fecha de vigencia por entrada &mdash; no hace falta un sistema complejo. Con eso alcanza para que la portada tenga algo nuevo que decir cualquier semana del año, no solo en diciembre.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><b>Metodología:</b> este documento se elaboró revisando el perfil público de Instagram @disarocagroup y el sitio web disaroca.com el 25 de agosto de 2026 (bio, cuadrícula de publicaciones, resaltados, portada, y las páginas de inicio, servicios y nosotros del sitio). Los colores son estimaciones visuales, no extracciones de píxel exactas, y el isotipo se presenta como reconstrucción esquemática con fines de análisis.</p>
+    <p>No es un documento oficial de Disaroca Group ni sustituye un manual de marca entregado por la empresa. La Parte II es una propuesta externa de estrategia de marca basada en este diagnóstico &mdash; conviene validarla con el equipo interno antes de ejecutarla, y verificar cualquier valor antes de usarlo en producción.</p>
+  </div>
+</footer>

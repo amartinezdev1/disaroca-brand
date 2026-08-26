@@ -363,7 +363,7 @@ const DICT = {
     quoteCta: "Cotizar",
     countdownLabel: "Próxima temporada en",
     disclaimer: "Prototipo interno de dirección de sitio, derivado del estudio de marca Disaroca (25 ago 2026). No es material oficial de Disaroca Group. Todas las cifras, plazos y especificaciones son de relleno para evaluar la maquetación — verificar con el equipo antes de usarlas. Las imágenes son marcadores de color.",
-    nav: { home: "Home", servicios: "Servicios", proyectos: "Proyectos", moments: "DisaMoments", nosotros: "Nosotros", contacto: "Contacto" },
+    nav: { home: "Home", servicios: "Servicios", proyectos: "Proyectos"},
     wip: "En construcción",
     homePanel: {
       eyebrow: "Lo que hacemos",
@@ -949,7 +949,7 @@ class Component extends DCLogic {
     const purple = this.props.accentPurple || "#4B2A6B";
     const cd = this.nextSeason(st.lang);
 
-    const navKeys = ["home", "servicios", "proyectos", "moments", "nosotros", "contacto"];
+    const navKeys = ["home", "servicios", "proyectos"];
     const navItems = navKeys.map(k => ({
       label: t.nav[k],
       go: () => this.go(k),
